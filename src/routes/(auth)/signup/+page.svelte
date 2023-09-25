@@ -59,7 +59,7 @@
   <Button type="submit" bind:loading>Create Account</Button>
 </form>
 
-<small class="text-center block text-white text-opacity-50">
+<small class="text-center block text-faded">
   Already have an account?
-  <a href="/login" class="text-white text-opacity-100">Login</a>
+  <a href="/login" class="text-white">Login</a>
 </small>

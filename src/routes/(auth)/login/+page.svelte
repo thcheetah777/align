@@ -50,7 +50,7 @@
   <Button type="submit" bind:loading>Login</Button>
 </form>
 
-<small class="text-center block text-white text-opacity-50">
+<small class="text-center block text-faded">
   Don't have an account?
-  <a href="/signup" class="text-white text-opacity-100">Sign Up</a>
+  <a href="/signup" class="text-white">Sign Up</a>
 </small>

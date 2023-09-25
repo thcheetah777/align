@@ -23,7 +23,7 @@
     <slot />
   </label>
   <input class={cn(
-    "block w-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-sm duration-200 placeholder:text-white placeholder:text-opacity-60",
+    "block w-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-sm duration-200 placeholder:text-faded",
     className
   )} bind:value required={!optional} {...$$restProps}>
 </div>

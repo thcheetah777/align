@@ -10,5 +10,5 @@
     icon="ic:round-dashboard"
     class="relative bottom-1.5">
   </iconify-icon>
-  <span class="font-bold ">Align</span>
+  <span class="font-bold">Align</span>
 </div>
