@@ -8,6 +8,7 @@
 
   export let data: PageData;
 
+  let name: [string, string] = ["", ""];
   let email = "";
   let password = "";
 
@@ -19,6 +20,12 @@
     const { error } = await data.supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          first_name: name[0] ,
+          last_name: name[1],
+        },
+      },
     });
 
     if (error) {
@@ -34,7 +41,25 @@
 
 <h1 class="font-medium text-xl">Sign Up</h1>
 
-<form class="space-y-6 text-sm" on:submit|preventDefault={handleSignUp}>
+<form class="space-y-4 text-sm" on:submit|preventDefault={handleSignUp}>
+  <div class="flex gap-2">
+    <Input
+      id="first-name"
+      containerClass="w-1/2"
+      placeholder="John"
+      bind:value={name[0]}>
+      First name
+    </Input>
+
+    <Input
+      id="last-name"
+      containerClass="w-1/2"
+      placeholder="Smith"
+      bind:value={name[1]}>
+      Last name
+    </Input>
+  </div>
+
   <Input
     type="email"
     id="email"

@@ -14,6 +14,7 @@ export default {
         "md": "4rem",
         "lg": "6rem",
         "xl": "8rem",
+        "nav": "10vh",
       },
       borderRadius: {
         "sm": "4px",
@@ -21,6 +22,7 @@ export default {
       colors: {
         "border": "#333333",
         "faded": "#808080",
+        "lighter": "#1c1c1c",
       },
       scale: {
         "smaller": "98%",
