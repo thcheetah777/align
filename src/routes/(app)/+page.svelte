@@ -8,8 +8,8 @@
 
 <div class="space-y-xs m-sm">
   <div class="flex items-stretch gap-xs">
-    <Input id="search" label={false} containerClass="flex-grow" placeholder="Search projects..." />
-    <Button class="w-36 flex items-center gap-xxs justify-center">
+    <Input id="search" label={false} containerClass="flex-grow h-full" placeholder="Search projects..." />
+    <Button class="w-auto px-xs flex items-center gap-1 justify-center">
       <span>Create Project</span>
       <iconify-icon icon="ic:sharp-add" class="text-xl"></iconify-icon>
     </Button>
@@ -25,7 +25,7 @@
             <i class="text-4xl not-italic">{project.icon}</i>
             <div>
               <h1 class="text-lg font-bold">{project.name}</h1>
-              <h2 class="text-sm">{project.created_at}</h2>
+              <h2 class="text-sm">{project.description}</h2>
             </div>
           </div>
         </a>

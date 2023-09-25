@@ -28,7 +28,7 @@
   {/if}
 
   <input class={cn(
-    "block w-full h-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-md duration-200 placeholder:text-faded",
+    "block w-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-md duration-200 placeholder:text-faded",
     className
   )} bind:value required={!optional} {...$$restProps}>
 </div>

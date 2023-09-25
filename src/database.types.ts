@@ -40,19 +40,22 @@ export interface Database {
       projects: {
         Row: {
           created_at: string
-          icon: string
+          description: string | null
+          icon: string | null
           id: string
           name: string
         }
         Insert: {
           created_at?: string
-          icon?: string
+          description?: string | null
+          icon?: string | null
           id?: string
           name: string
         }
         Update: {
           created_at?: string
-          icon?: string
+          description?: string | null
+          icon?: string | null
           id?: string
           name?: string
         }

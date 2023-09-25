@@ -25,10 +25,12 @@
 
 <nav class="flex items-center justify-between h-nav fixed top-0 w-full px-sm border-b bg-black border-border z-20">
   <header>
-    <a href="/"><iconify-icon icon="ic:round-dashboard" class="text-3xl"></iconify-icon></a>
+    <a href="/" class="hover:border-opacity-100 border-opacity-0 border border-border p-1 rounded-lg flex justify-center items-center duration-200">
+      <iconify-icon icon="ic:round-dashboard" class="text-3xl"></iconify-icon>
+    </a>
   </header>
 
-  <div class="relative">
+  <div class="relative flex items-center">
     <button
       on:click={() => profileDropdown = !profileDropdown}
       class="aspect-square w-10">
