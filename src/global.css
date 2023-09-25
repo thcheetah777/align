@@ -14,6 +14,20 @@
     background-attachment: local;
     background-size: 10px 10px;
   }
+
+  .skinny-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .skinny-scrollbar::-webkit-scrollbar-track, .skinny-scrollbar::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  .skinny-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: theme("colors.border");
+  }
 }
 
 @tailwind components;

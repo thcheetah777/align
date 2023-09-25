@@ -72,7 +72,7 @@
 
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
-    class="overflow-auto flex-grow relative dotted-background"
+    class="overflow-auto flex-grow relative dotted-background skinny-scrollbar"
     bind:this={whiteboard}
     on:mousedown={mouseDown}
     on:mousemove={mouseMove}
