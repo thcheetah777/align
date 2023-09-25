@@ -20,6 +20,9 @@ export default {
       },
       colors: {
         "border": "#333333",
+      },
+      scale: {
+        "smaller": "98%",
       }
     },
   },

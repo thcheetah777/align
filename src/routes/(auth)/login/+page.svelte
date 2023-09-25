@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
   import { goto } from "$app/navigation";
 
+	import Button from "$components/Button.svelte";
   import Input from "$components/Input.svelte";
 
   export let data: PageData;
@@ -44,7 +45,7 @@
     placeholder="••••••••••"
     bind:value={password}>Password</Input>
 
-  <button type="submit" class="rounded-md bg-white text-black p-3 w-full font-medium">Login</button>
+  <Button type="submit" bind:loading>Login</Button>
 </form>
 
 <small class="text-center block text-white text-opacity-50">
