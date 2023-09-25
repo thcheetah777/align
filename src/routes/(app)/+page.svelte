@@ -20,12 +20,12 @@
       {#each data.projects as project}
         <a
           href="/project/{project.id}"
-          class="border border-border hover:border-white bg-black rounded-lg p-sm duration-200">
+          class="border border-border hover:border-white bg-black rounded-lg p-sm duration-200 h-40">
           <div class="flex gap-xxs">
             <i class="text-4xl not-italic">{project.icon}</i>
-            <div>
+            <div class="space-y-xxs">
               <h1 class="text-lg font-bold">{project.name}</h1>
-              <h2 class="text-sm">{project.description}</h2>
+              <h2 class="text-sm line-clamp-3">{project.description}</h2>
             </div>
           </div>
         </a>
