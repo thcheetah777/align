@@ -23,7 +23,7 @@
   }
 </script>
 
-<nav class="flex items-center justify-between h-nav fixed top-0 w-full px-sm border-b border-border z-20">
+<nav class="flex items-center justify-between h-nav fixed top-0 w-full px-sm border-b bg-black border-border z-20">
   <header>
     <a href="/"><iconify-icon icon="ic:round-dashboard" class="text-3xl"></iconify-icon></a>
   </header>
@@ -72,6 +72,6 @@
   </div>
 </nav>
 
-<main class="mt-nav overflow-auto">
+<main class="pt-nav overflow-auto min-h-screen bg-background">
   <slot />
 </main>

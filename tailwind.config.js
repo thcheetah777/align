@@ -23,6 +23,7 @@ export default {
         "border": "#333333",
         "faded": "#808080",
         "lighter": "#1c1c1c",
+        "background": "#111111",
       },
       scale: {
         "smaller": "98%",
