@@ -4,6 +4,7 @@
   import { invalidate } from "$app/navigation";
 
   import "../global.css";
+  import "iconify-icon";
 
   export let data: LayoutData;
 
