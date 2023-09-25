@@ -74,6 +74,6 @@
   </div>
 </nav>
 
-<main class="pt-nav overflow-auto min-h-screen bg-background">
+<main class="pt-nav overflow-auto h-screen bg-background">
   <slot />
 </main>

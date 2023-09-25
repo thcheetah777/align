@@ -7,6 +7,13 @@
     background-color: black;
     color: white;
   }
+
+  .dotted-background {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.02) 1.5px, transparent 0);
+    background-position: 0 0;
+    background-attachment: local;
+    background-size: 10px 10px;
+  }
 }
 
 @tailwind components;
