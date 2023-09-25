@@ -7,6 +7,7 @@
     containerClass?: string;
     id: string;
     optional?: boolean;
+    label?: boolean;
   };
 
   let className = "";
@@ -16,14 +17,18 @@
   export let id = "";
   export let value = "";
   export let optional = false;
+  export let label = true;
 </script>
 
 <div class={cn("space-y-2", containerClass)}>
-  <label for={id} class="block">
-    <slot />
-  </label>
+  {#if label}
+    <label for={id} class="block">
+      <slot />
+    </label>
+  {/if}
+
   <input class={cn(
-    "block w-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-sm duration-200 placeholder:text-faded",
+    "block w-full h-full border border-border focus:border-white bg-black py-xxs px-xs outline-none rounded-md duration-200 placeholder:text-faded",
     className
   )} bind:value required={!optional} {...$$restProps}>
 </div>

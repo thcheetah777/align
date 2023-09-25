@@ -20,7 +20,7 @@
   (
     outline ?
     "border border-border hover:border-white rounded-md bg-black text-white" :
-    "bg-white text-black rounded-sm hover:bg-neutral-200 active:scale-smaller"
+    "bg-white text-black rounded-md hover:bg-neutral-200 active:scale-smaller"
   ),
   className,
 )} on:click {...$$restProps}>
