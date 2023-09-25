@@ -1,11 +1,19 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 	import { goto } from "$app/navigation";
+  import toast from "svelte-french-toast";
 
   export let data: PageData;
 
   async function handleLogOut() {
-    await data.supabase.auth.signOut();
+    await toast.promise(
+      data.supabase.auth.signOut(),
+      {
+        loading: "Logging out...",
+        success: "Successfully logged out!",
+        error: "There was an error logging you out",
+      },
+    );
 
     goto("/login");
   }

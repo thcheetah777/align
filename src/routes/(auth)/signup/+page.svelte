@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { goto } from "$app/navigation";
+  import toast from "svelte-french-toast";
 
 	import Button from "$components/Button.svelte";
   import Input from "$components/Input.svelte";
@@ -21,8 +22,9 @@
     });
 
     if (error) {
-      console.error(error.message);
+      toast.error(error.message);
     } else {
+      toast.success("Successfully signed up in!");
       goto("/");
     }
 
