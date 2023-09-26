@@ -2,6 +2,7 @@
   import type { PageData } from "./$types";
 
   import Card from "$components/Card.svelte";
+  import { onMount } from "svelte";
 
   export let data: PageData;
 
@@ -60,6 +61,11 @@
       document.body.style.cursor = "default";
     }
   }
+
+  onMount(() => {
+    document.addEventListener("mouseup", mouseUp);
+    return () => document.removeEventListener("mouseup", mouseUp);
+  });
 </script>
 
 <div class="flex h-full">
@@ -77,8 +83,7 @@
     class="overflow-auto flex-grow relative dotted-background skinny-scrollbar"
     bind:this={whiteboard}
     on:mousedown={mouseDown}
-    on:mousemove={mouseMove}
-    on:mouseup={mouseUp}>
+    on:mousemove={mouseMove}>
     {#if data.cards}
       {#each data.cards as card}
         <Card {card} />
