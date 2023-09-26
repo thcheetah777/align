@@ -24,7 +24,7 @@
           <div class="flex gap-xxs">
             <i class="text-4xl not-italic">{project.icon}</i>
             <div class="space-y-xxs">
-              <h1 class="text-lg font-bold">{project.name}</h1>
+              <h1 class="text-base font-bold">{project.name}</h1>
               <h2 class="text-sm line-clamp-3">{project.description}</h2>
             </div>
           </div>

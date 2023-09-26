@@ -6,6 +6,7 @@ export default {
     extend: {
       fontFamily: {
         "logo": ["Josefin Sans", "sans-serif"],
+        "sans": ["Inter", "sans-serif"],
       },
       spacing: {
         "xxs": "0.5rem",

@@ -26,9 +26,11 @@
       e.preventDefault();
 
       cardElement.style.left = `${
-        +(cardElement.style.left.slice(0, cardElement.style.left.length - 2)) + e.movementX}px`;
+        +(cardElement.style.left.slice(0, cardElement.style.left.length - 2)) +
+        e.movementX}px`;
       cardElement.style.top = `${
-        +(cardElement.style.top.slice(0, cardElement.style.top.length - 2)) + e.movementY}px`;
+        +(cardElement.style.top.slice(0, cardElement.style.top.length - 2)) +
+        e.movementY}px`;
     }
   }
 
@@ -70,7 +72,7 @@
 {#if card.type === "note"}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
-    class="absolute bg-black border border-border rounded-lg p-xs w-80 h-20"
+    class="absolute bg-black border border-border rounded-lg p-xs w-80 h-20 text-sm"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
     bind:this={cardElement}>
