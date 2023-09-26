@@ -4,6 +4,7 @@
   import Logo from "$components/Logo.svelte";
   import { fade } from "svelte/transition";
   import toast from "svelte-french-toast";
+  import { currentProject } from "$src/lib/utils";
 
   export let data: LayoutData;
 
@@ -24,10 +25,17 @@
 </script>
 
 <nav class="flex items-center justify-between h-nav fixed top-0 w-full px-sm border-b bg-black border-border z-20">
-  <header>
+  <header class="flex gap-xxs items-center">
     <a href="/" class="hover:border-opacity-100 border-opacity-0 border border-border p-1 rounded-lg flex justify-center items-center duration-200">
       <iconify-icon icon="ic:round-dashboard" class="text-3xl"></iconify-icon>
     </a>
+    {#if $currentProject}
+      <span class="text-border text-2xl">/</span>
+      <div class="flex gap-1 items-center">
+        <i class="not-italic text-xl">{$currentProject.icon}</i>
+        <small>{$currentProject.name}</small>
+      </div>
+    {/if}
   </header>
 
   <div class="relative flex items-center">

@@ -3,6 +3,7 @@
 
   import Card from "$components/Card.svelte";
   import { onMount } from "svelte";
+  import { currentProject } from "$lib/utils";
 
   export let data: PageData;
 
@@ -62,8 +63,13 @@
   }
 
   onMount(() => {
+    currentProject.set(data.project);
     document.addEventListener("mouseup", mouseUp);
-    return () => document.removeEventListener("mouseup", mouseUp);
+
+    return () => {
+      document.removeEventListener("mouseup", mouseUp);
+      currentProject.set(null);
+    }
   });
 </script>
 
