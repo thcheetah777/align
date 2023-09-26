@@ -86,7 +86,7 @@
     on:mousemove={mouseMove}>
     {#if data.cards}
       {#each data.cards as card}
-        <Card {card} />
+        <Card {card} supabase={data.supabase} />
       {/each}
     {/if}
   </div>

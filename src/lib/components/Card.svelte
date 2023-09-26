@@ -1,8 +1,12 @@
 <script lang="ts">
-  import type { Tables } from "$src/database.types";
+  import type { Database, Tables } from "$src/database.types";
+  import type { SupabaseClient } from "@supabase/supabase-js";
   import { onMount } from "svelte";
+  import toast from "svelte-french-toast";
 
   export let card: Tables<"cards">;
+  export let supabase: SupabaseClient<Database>;
+  let cardElement: HTMLElement;
 
   let dragging = false;
 
@@ -28,6 +32,26 @@
       e.preventDefault();
       dragging = false;
       document.body.style.cursor = "default";
+      const target = e.target as HTMLElement;
+      if (target == cardElement) {
+        toast.promise(
+          new Promise<void>(async resolve => {
+            await supabase
+              .from("cards")
+              .update({
+                x_position: +target.style.left.toString().slice(0, target.style.left.length - 2),
+                y_position: +target.style.top.toString().slice(0, target.style.top.length - 2),
+              })
+              .eq("id", card.id);
+            resolve();
+          }),
+          {
+            loading: "Saving...",
+            success: "Saved!",
+            error: "There was an error saving",
+          }
+        );
+      }
     }
   }
 
@@ -43,7 +67,8 @@
     class="absolute bg-black border border-border rounded-lg p-xs w-80 h-20"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
-    on:mousemove={mouseMove}>
+    on:mousemove={mouseMove}
+    bind:this={cardElement}>
     {card.content}
   </div>
 {/if}
