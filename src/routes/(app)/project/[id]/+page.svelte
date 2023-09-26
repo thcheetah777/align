@@ -4,6 +4,8 @@
   import Card from "$components/Card.svelte";
   import { onMount } from "svelte";
   import { currentProject } from "$lib/utils";
+  import { fly } from "svelte/transition";
+  import { backIn, backInOut } from "svelte/easing";
 
   export let data: PageData;
 
@@ -37,6 +39,7 @@
 
   let whiteboard: HTMLDivElement;
   let mouseState = false;
+  let sidebarOpen = true;
 
   function mouseDown(e: MouseEvent) {
     if (e.button === 1) {
@@ -89,10 +92,40 @@
     bind:this={whiteboard}
     on:mousedown={mouseDown}
     on:mousemove={mouseMove}>
+    <!-- Cards -->
     {#if data.cards}
       {#each data.cards as card}
         <Card {card} supabase={data.supabase} />
       {/each}
+    {/if}
+
+    <!-- Open sidebar button -->
+    {#if !sidebarOpen}
+      <button
+        on:click={() => sidebarOpen = true}
+        transition:fly={{ x: 24, duration: 350 }}
+        class="fixed -right-6 top-1/2 -translate-y-1/2 rounded-full bg-black aspect-square w-12 flex items-center px-1">
+        <iconify-icon icon="ic:baseline-chevron-left" class="text-xl text-white"></iconify-icon>
+      </button>
+    {/if}
+
+    <!-- Project sidebar -->
+    {#if sidebarOpen}
+      <div
+        class="py-xs right-xs h-[calc(100vh-theme('spacing.nav'))] z-50 fixed w-80 bottom-0"
+        transition:fly={{ x: 320 + 16, duration: 450, opacity: 1, easing: backInOut }}>
+        <div class="border border-border bg-black rounded-xl p-6 overflow-auto w-full h-full">
+          <div class="space-y-xxs">
+            <div class="flex justify-between items-center">
+              <h1 class="font-bold text-xl">{data.project.name}</h1>
+              <button on:click={() => sidebarOpen = false}>
+                <iconify-icon icon="ic:baseline-close" class="text-2xl"></iconify-icon>
+              </button>
+            </div>
+            <h2 class="text-faded text-sm">{data.project.description}</h2>
+          </div>
+        </div>
+      </div>
     {/if}
   </div>
 </div>

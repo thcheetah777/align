@@ -72,7 +72,7 @@
 {#if card.type === "note"}
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
-    class="absolute bg-black border border-border rounded-lg p-xs w-80 h-20 text-sm"
+    class="absolute bg-lighter border border-border rounded-sm p-xs w-80 h-20 text-sm"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
     bind:this={cardElement}>
