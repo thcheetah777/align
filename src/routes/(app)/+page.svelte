@@ -36,7 +36,19 @@
                 {/if}
               </div>
 
-              <small class="text-faded">Last edited at 8:32</small>
+              {#if project.last_updated}
+                <small class="text-faded">
+                  Last edited on
+                  {new Date(project.last_updated).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric"
+                  })}
+                  at {new Date(project.last_updated).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                  })}
+                </small>
+              {/if}
             </div>
           </div>
         </a>
