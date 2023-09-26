@@ -48,7 +48,6 @@
   function mouseMove(e: MouseEvent) {
     if (mouseState) {
       e.preventDefault();
-      console.log(e.movementX, e.movementY);
       whiteboard.scrollTop -= e.movementY;
       whiteboard.scrollLeft -= e.movementX;
     }
@@ -58,7 +57,7 @@
     if (e.button === 1) {
       e.preventDefault();
       mouseState = false;
-      document.body.style.cursor = "default";
+      document.body.style.cursor = "auto";
     }
   }
 
