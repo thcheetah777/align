@@ -11,22 +11,31 @@ export interface Database {
     Tables: {
       cards: {
         Row: {
+          content: string | null
           created_at: string
           id: number
           project_id: string
           type: string
+          x_position: number
+          y_position: number
         }
         Insert: {
+          content?: string | null
           created_at?: string
           id?: number
           project_id: string
           type: string
+          x_position?: number
+          y_position?: number
         }
         Update: {
+          content?: string | null
           created_at?: string
           id?: number
           project_id?: string
           type?: string
+          x_position?: number
+          y_position?: number
         }
         Relationships: [
           {
@@ -76,3 +85,6 @@ export interface Database {
     }
   }
 }
+
+export type Tables<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Row"];
+export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];

@@ -1,6 +1,8 @@
 <script lang="ts">
   import type { PageData } from "./$types";
 
+  import Card from "$components/Card.svelte";
+
   export let data: PageData;
 
   interface Utility {
@@ -77,8 +79,10 @@
     on:mousedown={mouseDown}
     on:mousemove={mouseMove}
     on:mouseup={mouseUp}>
-    <div class="absolute top-[40rem] left-[80rem] w-80 bg-black p-xs border border-border rounded-lg">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo magni sit placeat odit impedit dolore. Animi aliquam doloremque nostrum cumque labore delectus enim molestiae? Ad rem perspiciatis earum eaque tempore.
-    </div>
+    {#if data.cards}
+      {#each data.cards as card}
+        <Card {card} />
+      {/each}
+    {/if}
   </div>
 </div>

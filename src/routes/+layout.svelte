@@ -4,7 +4,7 @@
   import { invalidate } from "$app/navigation";
   import { Toaster } from "svelte-french-toast";
 
-  import "../global.css";
+  import "$src/global.css";
   import "iconify-icon";
 
   export let data: LayoutData;

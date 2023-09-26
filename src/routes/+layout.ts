@@ -1,5 +1,5 @@
 import { createSupabaseLoadClient } from "@supabase/auth-helpers-sveltekit";
-import type { Database } from "../database.types.js";
+import type { Database } from "$src/database.types.js";
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from "$env/static/public";
 
 export const load = async ({ fetch, data, depends }) => {

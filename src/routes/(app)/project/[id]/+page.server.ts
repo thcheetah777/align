@@ -13,5 +13,10 @@ export const load = (async ({ params, locals: { supabase } }) => {
     message: "Not found",
   });
 
-  return { project };
+  const { data: cards } = await supabase
+    .from("cards")
+    .select("*")
+    .eq("project_id", project.id);
+
+  return { project, cards };
 }) satisfies PageServerLoad;
