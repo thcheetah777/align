@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-
-  import Card from "$components/Card.svelte";
   import { onMount } from "svelte";
   import { currentProject } from "$lib/utils";
   import { fly } from "svelte/transition";
-  import { backIn, backInOut } from "svelte/easing";
+  import { backInOut } from "svelte/easing";
+
+  import Card from "$components/Card.svelte";
 
   export let data: PageData;
 
@@ -117,7 +117,12 @@
         <div class="border border-border bg-black rounded-xl p-6 overflow-auto w-full h-full">
           <div class="space-y-xxs">
             <div class="flex justify-between items-center">
-              <h1 class="font-bold text-xl">{data.project.name}</h1>
+              <span class="font-bold text-xl">
+                <button class="rounded-md hover:bg-lighter p-0.5 duration-200">
+                  <i class="not-italic">{data.project.icon}</i>
+                </button>
+                <h1 class="inline">{data.project.name}</h1>
+              </span>
               <button on:click={() => sidebarOpen = false}>
                 <iconify-icon icon="ic:baseline-close" class="text-2xl"></iconify-icon>
               </button>

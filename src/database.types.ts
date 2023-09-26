@@ -15,7 +15,7 @@ export interface Database {
           created_at: string
           id: number
           project_id: string
-          type: string
+          type: Database["public"]["Enums"]["card_type"]
           x_position: number
           y_position: number
         }
@@ -24,7 +24,7 @@ export interface Database {
           created_at?: string
           id?: number
           project_id: string
-          type: string
+          type: Database["public"]["Enums"]["card_type"]
           x_position?: number
           y_position?: number
         }
@@ -33,7 +33,7 @@ export interface Database {
           created_at?: string
           id?: number
           project_id?: string
-          type?: string
+          type?: Database["public"]["Enums"]["card_type"]
           x_position?: number
           y_position?: number
         }
@@ -53,6 +53,7 @@ export interface Database {
           icon: string | null
           id: string
           name: string
+          status: Database["public"]["Enums"]["project_status"] | null
         }
         Insert: {
           created_at?: string
@@ -60,6 +61,7 @@ export interface Database {
           icon?: string | null
           id?: string
           name: string
+          status?: Database["public"]["Enums"]["project_status"] | null
         }
         Update: {
           created_at?: string
@@ -67,6 +69,7 @@ export interface Database {
           icon?: string | null
           id?: string
           name?: string
+          status?: Database["public"]["Enums"]["project_status"] | null
         }
         Relationships: []
       }
@@ -78,7 +81,13 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      card_type: "note" | "image" | "link" | "color" | "column" | "row"
+      project_status:
+        | "Backlog"
+        | "Todo"
+        | "In Progress"
+        | "Finished"
+        | "Canceled"
     }
     CompositeTypes: {
       [_ in never]: never

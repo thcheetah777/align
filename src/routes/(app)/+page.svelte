@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ProjectStatus from "./../../lib/components/ProjectStatus.svelte";
   import type { PageData } from "./$types";
   import Input from "$components/Input.svelte";
   import Button from "$components/Button.svelte";
@@ -24,7 +25,14 @@
           <div class="flex gap-xxs">
             <i class="text-4xl not-italic">{project.icon}</i>
             <div class="space-y-xxs">
-              <h1 class="text-base font-bold">{project.name}</h1>
+              <div class="flex justify-between items-center">
+                <h1 class="text-base font-bold">{project.name}</h1>
+                {#if project.status}
+                  <small>
+                    <ProjectStatus status={project.status} />
+                  </small>
+                {/if}
+              </div>
               <h2 class="text-sm line-clamp-3">{project.description}</h2>
             </div>
           </div>
