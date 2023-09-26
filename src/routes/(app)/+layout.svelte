@@ -31,10 +31,12 @@
     </a>
     {#if $currentProject}
       <span class="text-border text-2xl">/</span>
-      <div class="flex gap-1 items-center">
+      <a
+        href="/project/{$currentProject.id}"
+        class="flex items-center rounded-md hover:bg-lighter py-xxs pl-xxs pr-xs duration-200">
         <i class="not-italic text-xl">{$currentProject.icon}</i>
         <small>{$currentProject.name}</small>
-      </div>
+      </a>
     {/if}
   </header>
 
