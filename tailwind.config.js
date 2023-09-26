@@ -28,6 +28,9 @@ export default {
       },
       scale: {
         "smaller": "98%",
+      },
+      fontSize: {
+        "xxs": "0.65rem",
       }
     },
   },
