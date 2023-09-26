@@ -21,10 +21,12 @@
       {#each data.projects as project}
         <a
           href="/project/{project.id}"
-          class="border border-border hover:border-white bg-black rounded-lg p-sm duration-200 h-40">
+          class="border border-border hover:border-white bg-black rounded-lg p-6 duration-200">
           <div class="flex gap-xxs">
             <i class="text-4xl not-italic">{project.icon}</i>
-            <div class="space-y-xxs">
+
+            <!-- Besides icon -->
+            <div class="flex-grow">
               <div class="flex justify-between items-center">
                 <h1 class="text-base font-bold">{project.name}</h1>
                 {#if project.status}
@@ -33,7 +35,8 @@
                   </small>
                 {/if}
               </div>
-              <h2 class="text-sm line-clamp-3">{project.description}</h2>
+
+              <small class="text-faded">Last edited at 8:32</small>
             </div>
           </div>
         </a>

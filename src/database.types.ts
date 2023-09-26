@@ -1,3 +1,9 @@
+// Helper types
+export type Tables<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Row"];
+export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];
+
+
+// Database
 export type Json =
   | string
   | number
@@ -52,6 +58,7 @@ export interface Database {
           description: string | null
           icon: string | null
           id: string
+          last_updated: string | null
           name: string
           status: Database["public"]["Enums"]["project_status"] | null
         }
@@ -60,6 +67,7 @@ export interface Database {
           description?: string | null
           icon?: string | null
           id?: string
+          last_updated?: string | null
           name: string
           status?: Database["public"]["Enums"]["project_status"] | null
         }
@@ -68,6 +76,7 @@ export interface Database {
           description?: string | null
           icon?: string | null
           id?: string
+          last_updated?: string | null
           name?: string
           status?: Database["public"]["Enums"]["project_status"] | null
         }
@@ -94,6 +103,3 @@ export interface Database {
     }
   }
 }
-
-export type Tables<T extends keyof Database["public"]["Tables"]> = Database["public"]["Tables"][T]["Row"];
-export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];
