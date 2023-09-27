@@ -1,5 +1,4 @@
 <script lang="ts">
-	import ProjectStatus from "./../../../../lib/components/ProjectStatus.svelte";
   import type { PageData } from "./$types";
   import { onMount } from "svelte";
   import { currentProject } from "$lib/utils";

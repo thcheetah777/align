@@ -9,6 +9,7 @@
 
   let dragging = false;
   let previousPosition: [string, string] = ["", ""];
+  let previousContent = card.content;
 
   function mouseDown(e: MouseEvent) {
     if (e.button === 0) {
@@ -58,10 +59,14 @@
   }
 
   async function saveContent() {
+    if (previousContent === cardElement.value) return;
+
     await supabase
       .from("cards")
       .update({ content: cardElement.value })
       .eq("id", card.id);
+
+    previousContent = cardElement.value;
 
     console.log("📝 Card content saved!");
   }
