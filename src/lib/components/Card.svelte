@@ -5,26 +5,22 @@
 
   export let card: Tables<"cards">;
   export let supabase: SupabaseClient<Database>;
-  let cardElement: HTMLElement;
+  let cardElement: HTMLTextAreaElement;
 
   let dragging = false;
   let previousPosition: [string, string] = ["", ""];
 
   function mouseDown(e: MouseEvent) {
     if (e.button === 0) {
-      e.preventDefault();
-
       dragging = true;
-      document.body.style.cursor = "move";
 
+      document.body.style.cursor = "move";
       previousPosition = [cardElement.style.left, cardElement.style.top];
     }
   }
 
   function mouseMove(e: MouseEvent) {
     if (dragging) {
-      e.preventDefault();
-
       cardElement.style.left = `${
         +(cardElement.style.left.slice(0, cardElement.style.left.length - 2)) +
         e.movementX}px`;
@@ -36,8 +32,6 @@
 
   async function mouseUp(e: MouseEvent) {
     if (e.button === 0) {
-      e.preventDefault();
-
       dragging = false;
       document.body.style.cursor = "default";
 
@@ -63,6 +57,15 @@
     console.log("✅ Saved!");
   }
 
+  async function saveContent() {
+    await supabase
+      .from("cards")
+      .update({ content: cardElement.value })
+      .eq("id", card.id);
+
+    console.log("📝 Card content saved!");
+  }
+
   onMount(() => {
     document.addEventListener("mouseup", mouseUp);
     document.addEventListener("mousemove", mouseMove);
@@ -75,12 +78,14 @@
 </script>
 
 {#if card.type === "note"}
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <div
-    class="absolute bg-lighter border border-border rounded-sm p-xs w-80 h-20 text-sm"
+  <textarea
+    name="content"
+    id="content"
+    class="bg-transparent hover:resize focus:resize resize-none outline-none absolute bg-lighter border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
-    bind:this={cardElement}>
-    {card.content}
-  </div>
+    on:focusout={saveContent}
+    on:click={() => cardElement.focus()}
+    bind:this={cardElement}
+  >{card.content}</textarea>
 {/if}
