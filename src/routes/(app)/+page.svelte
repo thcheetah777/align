@@ -3,6 +3,7 @@
   import type { PageData } from "./$types";
   import Input from "$components/Input.svelte";
   import Button from "$components/Button.svelte";
+  import { getDate, getTime } from "$src/lib/utils";
 
   export let data: PageData;
 </script>
@@ -38,15 +39,7 @@
 
               {#if project.last_updated}
                 <small class="text-faded">
-                  Last edited on
-                  {new Date(project.last_updated).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric"
-                  })}
-                  at {new Date(project.last_updated).toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                  })}
+                  Last edited on {getDate(project.last_updated)} at {getTime(project.last_updated)}
                 </small>
               {/if}
             </div>

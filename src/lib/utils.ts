@@ -7,4 +7,18 @@ export function cn(...input: ClassValue[]) {
   return twMerge(clsx(input))
 }
 
+export function getDate(date: string) {
+  return new Date(date).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric"
+  });
+}
+
+export function getTime(date: string) {
+  return new Date(date).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+  })
+}
+
 export const currentProject = writable<Tables<"projects"> | null>();
