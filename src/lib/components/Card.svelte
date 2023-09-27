@@ -86,7 +86,7 @@
   <textarea
     name="content"
     id="content"
-    class="bg-lighter hover:resize focus:resize resize-none outline-none absolute bg-lighter border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm"
+    class="bg-lighter hover:resize focus:resize resize-none outline-none absolute border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
     on:focusout={saveContent}
