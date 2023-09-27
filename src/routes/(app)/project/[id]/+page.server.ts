@@ -15,7 +15,7 @@ export const load = (async ({ params, locals: { supabase } }) => {
 
   const { data: cards } = await supabase
     .from("cards")
-    .select("*")
+    .select("*, content(*)")
     .eq("project_id", project.id);
 
   return { project, cards };

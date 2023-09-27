@@ -87,7 +87,7 @@
 <div class="flex h-full">
   <aside class="flex flex-col gap-xs p-xs bg-black border-r border-border w-md">
     {#each utilities as utility}
-      <div class="text-white text-opacity-60 hover:text-opacity-100 flex flex-col items-center relative hover:left-1 left-0 duration-100 hover:cursor-pointer">
+      <div class="text-white text-opacity-60 hover:text-opacity-100 flex flex-col items-center relative hover:pl-2 pl-0 duration-100 hover:cursor-pointer">
         <iconify-icon icon={utility.icon} class="text-2xl"></iconify-icon>
         <small class="text-xxs">{utility.name}</small>
       </div>
@@ -120,7 +120,7 @@
     <!-- Project sidebar -->
     {#if sidebarOpen}
       <div
-        class="py-xs right-xs h-[calc(100vh-theme('spacing.nav'))] z-50 fixed w-80 bottom-0"
+        class="py-xs right-xs h-[calc(100vh-theme('spacing.nav'))] fixed w-80 bottom-0"
         transition:fly={{ x: 320 + 16, duration: 450, opacity: 1, easing: backInOut }}>
         <div class="border border-border bg-black rounded-xl p-6 overflow-auto w-full h-full">
           <div class="space-y-xxs">

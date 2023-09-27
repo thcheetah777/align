@@ -17,7 +17,7 @@ export interface Database {
     Tables: {
       cards: {
         Row: {
-          content: string | null
+          content: Tables<"note_content">
           created_at: string
           id: number
           project_id: string
@@ -26,7 +26,7 @@ export interface Database {
           y_position: number
         }
         Insert: {
-          content?: string | null
+          content: Tables<"note_content">
           created_at?: string
           id?: number
           project_id: string
@@ -35,7 +35,7 @@ export interface Database {
           y_position?: number
         }
         Update: {
-          content?: string | null
+          content?: Tables<"note_content">
           created_at?: string
           id?: number
           project_id?: string
@@ -45,12 +45,33 @@ export interface Database {
         }
         Relationships: [
           {
+            foreignKeyName: "cards_content_fkey"
+            columns: ["content"]
+            referencedRelation: "note_content"
+            referencedColumns: ["id"]
+          },
+          {
             foreignKeyName: "cards_project_id_fkey"
             columns: ["project_id"]
             referencedRelation: "projects"
             referencedColumns: ["id"]
           }
         ]
+      }
+      note_content: {
+        Row: {
+          id: string
+          text: string | null
+        }
+        Insert: {
+          id?: string
+          text?: string | null
+        }
+        Update: {
+          id?: string
+          text?: string | null
+        }
+        Relationships: []
       }
       projects: {
         Row: {

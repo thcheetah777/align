@@ -9,7 +9,7 @@
 
   let dragging = false;
   let previousPosition: [string, string] = ["", ""];
-  let previousContent = card.content;
+  let previousContent = card.content.text;
 
   function mouseDown(e: MouseEvent) {
     if (e.button === 0) {
@@ -62,9 +62,9 @@
     if (previousContent === cardElement.value) return;
 
     await supabase
-      .from("cards")
-      .update({ content: cardElement.value })
-      .eq("id", card.id);
+      .from("note_content")
+      .update({ text: cardElement.value })
+      .eq("id", card.content.id);
 
     previousContent = cardElement.value;
 
@@ -86,11 +86,11 @@
   <textarea
     name="content"
     id="content"
-    class="bg-transparent hover:resize focus:resize resize-none outline-none absolute bg-lighter border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm"
+    class="bg-lighter hover:resize focus:resize resize-none outline-none absolute bg-lighter border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm"
     style="left: {card.x_position}px; top: {card.y_position}px;"
     on:mousedown={mouseDown}
     on:focusout={saveContent}
     on:click={() => cardElement.focus()}
     bind:this={cardElement}
-  >{card.content}</textarea>
+  >{card.content.text}</textarea>
 {/if}
