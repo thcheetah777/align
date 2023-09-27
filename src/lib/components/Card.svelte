@@ -47,15 +47,25 @@
         e.target != cardElement
       ) return;
 
-      await supabase
-        .from("cards")
-        .update({
-          x_position: +cardElement.style.left.toString().slice(0, cardElement.style.left.length - 2),
-          y_position: +cardElement.style.top.toString().slice(0, cardElement.style.top.length - 2),
-        })
-        .eq("id", card.id);
-      console.log("✅ Saved!");
+      await autoSave();
     }
+  }
+
+  async function autoSave() {
+    await supabase
+      .from("cards")
+      .update({
+        x_position: +cardElement.style.left.toString().slice(0, cardElement.style.left.length - 2),
+        y_position: +cardElement.style.top.toString().slice(0, cardElement.style.top.length - 2),
+      })
+      .eq("id", card.id);
+
+      await supabase
+      .from("projects")
+      .update({ last_updated: new Date().toISOString() })
+      .eq("id", card.project_id);
+
+    console.log("✅ Saved!");
   }
 
   onMount(() => {
