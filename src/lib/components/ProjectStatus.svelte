@@ -15,4 +15,3 @@
     "bg-red-500": status === "Canceled",
   }
 )}></div>
-<span>{status}</span>

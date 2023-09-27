@@ -33,6 +33,7 @@
                 {#if project.status}
                   <small>
                     <ProjectStatus status={project.status} />
+                    <span>{project.status}</span>
                   </small>
                 {/if}
               </div>

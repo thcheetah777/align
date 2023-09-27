@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ProjectStatus from "./../../../../lib/components/ProjectStatus.svelte";
   import type { PageData } from "./$types";
   import { onMount } from "svelte";
   import { currentProject } from "$lib/utils";
@@ -135,6 +136,7 @@
                 <iconify-icon icon="ic:baseline-close" class="text-2xl"></iconify-icon>
               </button>
             </div>
+
             <h2 class="text-faded text-sm">{data.project.description}</h2>
           </div>
         </div>
