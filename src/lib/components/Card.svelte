@@ -60,11 +60,6 @@
       })
       .eq("id", card.id);
 
-      await supabase
-      .from("projects")
-      .update({ last_updated: new Date().toISOString() })
-      .eq("id", card.project_id);
-
     console.log("✅ Saved!");
   }
 

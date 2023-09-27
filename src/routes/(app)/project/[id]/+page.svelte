@@ -69,9 +69,17 @@
     currentProject.set(data.project);
     document.addEventListener("mouseup", mouseUp);
 
-    return () => {
-      document.removeEventListener("mouseup", mouseUp);
+    return async () => {
       currentProject.set(null);
+      document.removeEventListener("mouseup", mouseUp);
+
+      // Set last edited time
+      await data.supabase
+        .from("projects")
+        .update({ last_updated: new Date().toISOString() })
+        .eq("id", data.project.id);
+
+      console.log("Updated last edited time");
     }
   });
 </script>
