@@ -33,7 +33,7 @@
       <span class="text-border text-2xl">/</span>
       <a
         href="/project/{$currentProject.id}"
-        class="flex items-center rounded-md hover:bg-lighter py-xxs pl-xxs pr-xs duration-200">
+        class="flex items-center">
         <i class="not-italic text-xl">{$currentProject.icon}</i>
         <small>{$currentProject.name}</small>
       </a>
