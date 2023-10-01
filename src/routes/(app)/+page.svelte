@@ -49,6 +49,8 @@
       {/each}
     </div>
   {:else}
-    <p>Start by creating a project!</p>
+    <div class="flex justify-center items-center">
+      <p>Start by creating a project!</p>
+    </div>
   {/if}
 </div>
