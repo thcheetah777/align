@@ -2,108 +2,81 @@
   import type { Database, Tables } from "$src/database.types";
   import type { SupabaseClient } from "@supabase/supabase-js";
   import { onMount } from "svelte";
-  import { cn } from "../utils";
 
   export let card: Tables<"cards">;
   export let supabase: SupabaseClient<Database>;
 
-  let elementName: "div" | "textarea" = "div";
-  let cardElement: HTMLDivElement | HTMLTextAreaElement;
-  let dragging = false;
-  let selected = false;
+  let isDragging = false;
+  let isSelected = false;
 
-  let previousContent = card.content;
   let x = card.x_position;
   let y = card.y_position;
-  let previousPosition: [number, number] = [x, y];
 
-  function mouseDown(e: MouseEvent) {
-    if (e.button === 0 && cardElement instanceof HTMLDivElement) {
-      dragging = true;
-
-      previousPosition = [x, y];
-    }
-  }
-
-  function mouseMove(e: MouseEvent) {
-    if (dragging) {
-      document.body.style.cursor = "move";
-
-      x = +(cardElement.style.left.slice(0, cardElement.style.left.length - 2)) + e.movementX;
-      y = +(cardElement.style.top.slice(0, cardElement.style.top.length - 2)) + e.movementY;
-    }
-  }
-
-  async function mouseUp(e: MouseEvent) {
+  function startDrag(e: MouseEvent): void {
     if (e.button === 0) {
-      dragging = false;
+      isDragging = true;
+      document.body.style.cursor = "move";
+    }
+  }
+
+  function dragging(e: MouseEvent): void {
+    if (isDragging) {
+      x += e.movementX;
+      y += e.movementY;
+    }
+  }
+
+  async function stopDrag(e: MouseEvent): Promise<void> {
+    if (isDragging && e.button === 0) {
+      isDragging = false;
       document.body.style.cursor = "default";
 
-      if /* not the card */ (e.target !== cardElement) return;
-
-      if /* card didn't move */ (
-        previousPosition[0] === x ||
-        previousPosition[1] === y
-      ) {
-        elementName = "textarea";
-        cardElement.focus();
-        return;
-      };
-
-      await saveCard();
+      await saveCardPos();
     }
   }
 
-  async function focusOut() {
-    if (cardElement instanceof HTMLTextAreaElement) {
-      elementName = "div";
-
-      if (previousContent === cardElement.value) return;
-
-      await saveCard();
-
-      previousContent = cardElement.value;
-    }
-  }
-
-  async function saveCard() {
+  async function saveCardPos(): Promise<void> {
     await supabase
       .from("cards")
       .update({
         x_position: x,
         y_position: y,
-        content: cardElement instanceof HTMLTextAreaElement ? cardElement.value : card.content,
       })
       .eq("id", card.id);
 
     console.log("✅ Saved!");
   }
 
+  async function deleteCard(): Promise<void> {
+    await supabase
+      .from("cards")
+      .delete()
+      .eq("id", card.id);
+
+    console.log("❌ Card deleted");
+  }
+
   onMount(() => {
-    document.addEventListener("mouseup", mouseUp);
-    document.addEventListener("mousemove", mouseMove);
+    document.addEventListener("mouseup", stopDrag);
+    document.addEventListener("mousemove", dragging);
 
     return () => {
-      document.removeEventListener("mouseup", mouseUp);
-      document.removeEventListener("mousemove", mouseMove);
+      document.removeEventListener("mouseup", stopDrag);
+      document.addEventListener("mousemove", dragging);
     }
   });
 </script>
 
-{#if card.type === "note"}
-  <!-- svelte-ignore a11y-no-static-element-interactions -->
-  <svelte:element
-    id="content"
-    class={cn(
-      "bg-lighter resize outline-none absolute border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem] text-sm select-none",
-      {
-        "border-white": elementName === "textarea",
-      },
-    )}
-    style="left: {x}px; top: {y}px;"
-    on:mousedown={mouseDown}
-    on:focusout={focusOut}
-    bind:this={cardElement}
-    this={elementName}
-  >{previousContent}</svelte:element>
-{/if}
+<div
+  class="group bg-lighter absolute border border-border rounded-sm p-xs min-w-[20rem] min-h-[5rem]"
+  class:border-white={isSelected}
+  style="left: {x}px; top: {y}px;">
+  <div class="flex gap-1 absolute top-1 right-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 -translate-y-1 duration-200">
+      <button class="hover:text-red-500 duration-200">
+      <iconify-icon icon="mdi:trash-can-outline" class="text-lg"></iconify-icon>
+    </button>
+    <div on:mousedown={startDrag} role="menuitem" tabindex="0">
+      <iconify-icon icon="material-symbols:drag-pan-rounded" class="text-lg"></iconify-icon>
+    </div>
+  </div>
+</div>
