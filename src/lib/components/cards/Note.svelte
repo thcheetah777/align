@@ -21,7 +21,7 @@
 </script>
 
 <textarea
-  class="w-full h-full border border-border bg-lighter rounded-sm p-xs resize-none overflow-hidden outline-none"
+  class="w-[20rem] h-[5rem] border border-border bg-lighter rounded-sm p-xs resize-none overflow-hidden outline-none duration-200"
   on:focusout={save}
   bind:value={contentInput}
 ></textarea>

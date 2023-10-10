@@ -3,9 +3,10 @@
   import type { SupabaseClient } from "@supabase/supabase-js";
   import { onMount, type ComponentEvents, createEventDispatcher } from "svelte";
   import { scale } from "svelte/transition";
-
-	import Note from "./cards/Note.svelte";
   import { backIn } from "svelte/easing";
+
+	import Note from "$components/cards/Note.svelte";
+  import Image from "$components/cards/Image.svelte";
 
   export let card: Card;
   export let supabase: SupabaseClient<Database>;
@@ -27,6 +28,8 @@
 
   function dragging(e: MouseEvent): void {
     if (isDragging) {
+      e.preventDefault();
+
       x += e.movementX;
       y += e.movementY;
     }
@@ -68,7 +71,7 @@
 </script>
 
 <div
-  class="group absolute w-[20rem] h-[5rem]"
+  class="group absolute w-auto h-auto duration-0"
   class:border-white={isSelected}
   style="left: {x}px; top: {y}px;"
   transition:scale={{ easing: backIn }}>
@@ -77,6 +80,9 @@
     <Note
       content={card.content ?? ""}
       on:save={save} />
+  {:else if card.type === "image"}
+    <Image
+      content={card.content ?? ""} />
   {/if}
 
   <!-- Card actions -->
