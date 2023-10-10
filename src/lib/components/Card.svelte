@@ -2,8 +2,10 @@
   import type { Card, Database } from "$src/database.types";
   import type { SupabaseClient } from "@supabase/supabase-js";
   import { onMount, type ComponentEvents, createEventDispatcher } from "svelte";
+  import { scale } from "svelte/transition";
 
 	import Note from "./cards/Note.svelte";
+  import { backIn } from "svelte/easing";
 
   export let card: Card;
   export let supabase: SupabaseClient<Database>;
@@ -68,7 +70,8 @@
 <div
   class="group absolute w-[20rem] h-[5rem]"
   class:border-white={isSelected}
-  style="left: {x}px; top: {y}px;">
+  style="left: {x}px; top: {y}px;"
+  transition:scale={{ easing: backIn }}>
   <!-- Content -->
   {#if card.type === "note"}
     <Note
