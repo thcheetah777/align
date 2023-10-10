@@ -11,8 +11,8 @@
   export let card: Card;
   export let supabase: SupabaseClient<Database>;
 
-  let isDragging = false;
-  let isSelected = false;
+  let dragging = false;
+  let selected = false;
 
   let x = card.x_position;
   let y = card.y_position;
@@ -21,13 +21,13 @@
 
   function startDrag(e: MouseEvent): void {
     if (e.button === 0) {
-      isDragging = true;
+      dragging = true;
       document.body.style.cursor = "move";
     }
   }
 
-  function dragging(e: MouseEvent): void {
-    if (isDragging) {
+  function whileDragging(e: MouseEvent): void {
+    if (dragging) {
       e.preventDefault();
 
       x += e.movementX;
@@ -36,8 +36,8 @@
   }
 
   async function stopDrag(e: MouseEvent): Promise<void> {
-    if (isDragging && e.button === 0) {
-      isDragging = false;
+    if (dragging && e.button === 0) {
+      dragging = false;
       document.body.style.cursor = "default";
 
       await save();
@@ -61,18 +61,18 @@
 
   onMount(() => {
     document.addEventListener("mouseup", stopDrag);
-    document.addEventListener("mousemove", dragging);
+    document.addEventListener("mousemove", whileDragging);
 
     return () => {
       document.removeEventListener("mouseup", stopDrag);
-      document.addEventListener("mousemove", dragging);
+      document.addEventListener("mousemove", whileDragging);
     }
   });
 </script>
 
 <div
   class="group absolute w-auto h-auto duration-0"
-  class:border-white={isSelected}
+  class:border-white={selected}
   style="left: {x}px; top: {y}px;"
   transition:scale={{ easing: backIn }}>
   <!-- Content -->
@@ -95,7 +95,8 @@
     <div
       on:mousedown={startDrag}
       role="menuitem"
-      tabindex="0">
+      tabindex="0"
+      class="hover:cursor-move">
       <iconify-icon icon="material-symbols:drag-pan-rounded" class="text-lg"></iconify-icon>
     </div>
   </div>
