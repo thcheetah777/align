@@ -4,14 +4,19 @@
 
   export let content: string;
 
+  let savedContent = content;
   let contentInput = content;
 
   const dispatch = createEventDispatcher();
 
   function save() {
+    if (savedContent === contentInput) return;
+
     dispatch("save", {
       content: contentInput
     } satisfies CardPartial);
+
+    savedContent = contentInput;
   }
 </script>
 

@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Card, Database } from "$src/database.types";
   import type { SupabaseClient } from "@supabase/supabase-js";
-  import { onMount, type ComponentEvents } from "svelte";
+  import { onMount, type ComponentEvents, createEventDispatcher } from "svelte";
 
 	import Note from "./cards/Note.svelte";
 
@@ -13,6 +13,8 @@
 
   let x = card.x_position;
   let y = card.y_position;
+
+  const dispatch = createEventDispatcher();
 
   function startDrag(e: MouseEvent): void {
     if (e.button === 0) {
@@ -76,10 +78,15 @@
 
   <!-- Card actions -->
   <div class="flex gap-1 absolute top-1 right-1 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 -translate-y-1 duration-200">
-    <button class="hover:text-red-500 duration-200">
+    <button
+      class="hover:text-red-500 duration-200"
+      on:click={() => dispatch("delete", card.id)}>
       <iconify-icon icon="mdi:trash-can-outline" class="text-lg"></iconify-icon>
     </button>
-    <div on:mousedown={startDrag} role="menuitem" tabindex="0">
+    <div
+      on:mousedown={startDrag}
+      role="menuitem"
+      tabindex="0">
       <iconify-icon icon="material-symbols:drag-pan-rounded" class="text-lg"></iconify-icon>
     </div>
   </div>

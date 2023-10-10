@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { PageData } from "./$types";
-  import { onMount } from "svelte";
+  import { onMount, type ComponentEvents } from "svelte";
   import { currentProject } from "$lib/utils";
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
@@ -41,7 +41,10 @@
   let mouseState = false;
   let sidebarOpen = true;
 
-  function mouseDown(e: MouseEvent) {
+  let cards = data.cards;
+
+  // Whiteboard panning mouse events
+  function mouseDown(e: MouseEvent): void {
     if (e.button === 1) {
       e.preventDefault();
       mouseState = true;
@@ -49,7 +52,7 @@
     }
   }
 
-  function mouseMove(e: MouseEvent) {
+  function mouseMove(e: MouseEvent): void {
     if (mouseState) {
       e.preventDefault();
       whiteboard.scrollTop -= e.movementY;
@@ -57,7 +60,7 @@
     }
   }
 
-  function mouseUp(e: MouseEvent) {
+  function mouseUp(e: MouseEvent): void {
     if (e.button === 1) {
       e.preventDefault();
       mouseState = false;
@@ -65,7 +68,21 @@
     }
   }
 
+  // Card managing
+  async function deleteCard(event: ComponentEvents<Card>["delete"]): Promise<void> {
+    if (!cards) return;
+    // Event detail is card id
+    cards = cards.filter(card => card.id !== event.detail);
+    await data.supabase
+      .from("cards")
+      .delete()
+      .eq("id", event.detail);
+
+    console.log("❌ Card deleted!");
+  }
+
   onMount(() => {
+    // Setting layout breadcrumb
     currentProject.set(data.project);
     document.addEventListener("mouseup", mouseUp);
 
@@ -101,9 +118,12 @@
     on:mousedown={mouseDown}
     on:mousemove={mouseMove}>
     <!-- Cards -->
-    {#if data.cards}
-      {#each data.cards as card}
-        <Card {card} supabase={data.supabase} />
+    {#if cards}
+      {#each cards as card}
+        <Card
+          {card}
+          supabase={data.supabase}
+          on:delete={deleteCard} />
       {/each}
     {/if}
 
