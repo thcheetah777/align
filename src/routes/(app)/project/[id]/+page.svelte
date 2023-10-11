@@ -5,37 +5,10 @@
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
 
+	import UtilityBar from "$components/UtilityBar.svelte";
   import Card from "$components/Card.svelte";
 
   export let data: PageData;
-
-  interface Utility {
-    name: string;
-    icon: string;
-  }
-
-  const utilities: Utility[] = [
-    {
-      name: "Note",
-      icon: "material-symbols:sticky-note-2-outline",
-    },
-    {
-      name: "Image",
-      icon: "material-symbols:imagesmode-outline",
-    },
-    {
-      name: "Color",
-      icon: "mdi:palette",
-    },
-    {
-      name: "Column",
-      icon: "material-symbols:table-rows-narrow-outline-sharp"
-    },
-    {
-      name: "Row",
-      icon: "material-symbols:view-column-outline"
-    }
-  ];
 
   let whiteboard: HTMLDivElement;
   let mouseState = false;
@@ -102,14 +75,7 @@
 </script>
 
 <div class="flex h-full">
-  <aside class="flex flex-col gap-xs p-xs bg-black border-r border-border w-md">
-    {#each utilities as utility}
-      <div class="text-white flex flex-col items-center relative hover:pl-2 pl-0 duration-100 hover:cursor-pointer">
-        <iconify-icon icon={utility.icon} class="text-2xl"></iconify-icon>
-        <small class="text-xxs">{utility.name}</small>
-      </div>
-    {/each}
-  </aside>
+  <UtilityBar />
 
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
