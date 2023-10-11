@@ -104,7 +104,7 @@
 <div class="flex h-full">
   <aside class="flex flex-col gap-xs p-xs bg-black border-r border-border w-md">
     {#each utilities as utility}
-      <div class="text-white text-opacity-60 hover:text-opacity-100 flex flex-col items-center relative hover:pl-2 pl-0 duration-100 hover:cursor-pointer">
+      <div class="text-white flex flex-col items-center relative hover:pl-2 pl-0 duration-100 hover:cursor-pointer">
         <iconify-icon icon={utility.icon} class="text-2xl"></iconify-icon>
         <small class="text-xxs">{utility.name}</small>
       </div>
