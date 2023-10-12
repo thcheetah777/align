@@ -25,10 +25,6 @@
   });
 </script>
 
-<svelte:head>
-  <title>Align</title>
-</svelte:head>
-
 <slot />
 
 <Toaster />

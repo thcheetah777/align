@@ -38,7 +38,7 @@
   async function stopDrag(e: MouseEvent): Promise<void> {
     if (dragging && e.button === 0) {
       dragging = false;
-      document.body.style.cursor = "default";
+      document.body.style.cursor = "auto";
 
       await save();
     }

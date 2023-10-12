@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
   import type { LayoutData } from "./$types";
-  import Logo from "$components/Logo.svelte";
   import { fade } from "svelte/transition";
   import toast from "svelte-french-toast";
-  import { currentProject } from "$src/lib/utils";
+  import { currentProject } from "$lib/utils";
 
   export let data: LayoutData;
 

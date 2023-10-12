@@ -8,6 +8,10 @@
   export let data: PageData;
 </script>
 
+<svelte:head>
+  <title>Align - Dashboard</title>
+</svelte:head>
+
 <div class="space-y-xs m-sm">
   <div class="flex items-stretch gap-xs">
     <Input id="search" label={false} containerClass="flex-grow h-full" placeholder="Search projects..." />

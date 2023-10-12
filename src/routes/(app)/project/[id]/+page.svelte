@@ -11,7 +11,7 @@
   export let data: PageData;
 
   let whiteboard: HTMLDivElement;
-  let mouseState = false;
+  let panning = false;
   let sidebarOpen = true;
 
   let cards = data.cards;
@@ -20,13 +20,13 @@
   function mouseDown(e: MouseEvent): void {
     if (e.button === 1) {
       e.preventDefault();
-      mouseState = true;
+      panning = true;
       document.body.style.cursor = "grabbing";
     }
   }
 
   function mouseMove(e: MouseEvent): void {
-    if (mouseState) {
+    if (panning) {
       e.preventDefault();
       whiteboard.scrollTop -= e.movementY;
       whiteboard.scrollLeft -= e.movementX;
@@ -34,9 +34,8 @@
   }
 
   function mouseUp(e: MouseEvent): void {
-    if (e.button === 1) {
-      e.preventDefault();
-      mouseState = false;
+    if (e.button === 1 && panning) {
+      panning = false;
       document.body.style.cursor = "auto";
     }
   }
@@ -73,6 +72,10 @@
     }
   });
 </script>
+
+<svelte:head>
+  <title>Align - {data.project.name}</title>
+</svelte:head>
 
 <div class="flex h-full">
   <UtilityBar />

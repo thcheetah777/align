@@ -39,6 +39,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Align - Sign up</title>
+</svelte:head>
+
 <h1 class="font-medium text-xl">Sign Up</h1>
 
 <form class="space-y-4 text-sm" on:submit|preventDefault={handleSignUp}>

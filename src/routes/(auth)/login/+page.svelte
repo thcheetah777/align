@@ -32,6 +32,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Align - Log in</title>
+</svelte:head>
+
 <h1 class="font-medium text-xl">Login</h1>
 
 <form class="space-y-4 text-sm" on:submit|preventDefault={handleLogin}>
