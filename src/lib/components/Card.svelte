@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Card, Database } from "$src/database.types";
-  import type { SupabaseClient } from "@supabase/supabase-js";
+  import type { Session, SupabaseClient } from "@supabase/supabase-js";
   import { onMount, type ComponentEvents, createEventDispatcher } from "svelte";
   import { scale } from "svelte/transition";
   import { backIn } from "svelte/easing";
@@ -9,6 +9,7 @@
   import Image from "$components/cards/Image.svelte";
 
   export let card: Card;
+  export let session: Session | null;
   export let supabase: SupabaseClient<Database>;
 
   let dragging = false;
@@ -82,7 +83,9 @@
       on:save={save} />
   {:else if card.type === "image"}
     <Image
-      content={card.content ?? ""} />
+      content={card.content ?? ""}
+      on:save={save}
+      {supabase} {session} />
   {/if}
 
   <!-- Card actions -->

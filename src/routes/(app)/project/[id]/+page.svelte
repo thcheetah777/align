@@ -4,6 +4,7 @@
   import { currentProject } from "$lib/utils";
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
+  import type { CardPartial, Enums } from "$src/database.types";
 
 	import UtilityBar from "$components/UtilityBar.svelte";
   import Card from "$components/Card.svelte";
@@ -14,7 +15,7 @@
   let panning = false;
   let sidebarOpen = true;
 
-  let cards = data.cards;
+  let cards = data.cards!;
 
   // Whiteboard panning mouse events
   function mouseDown(e: MouseEvent): void {
@@ -42,15 +43,30 @@
 
   // Card managing
   async function deleteCard(event: ComponentEvents<Card>["delete"]): Promise<void> {
-    if (!cards) return;
     // Event detail is card id
     cards = cards.filter(card => card.id !== event.detail);
+
     await data.supabase
       .from("cards")
       .delete()
       .eq("id", event.detail);
 
     console.log("❌ Card deleted!");
+  }
+
+  // TEMP function for adding cards
+  async function createCard(event: ComponentEvents<UtilityBar>["click"]): Promise<void> {
+    const type = event.detail as Enums<"card_type">;
+    const { data: result } = await data.supabase
+      .from("cards")
+      .insert({
+        content: type === "image" ? "/image-placeholder.png" : "",
+        project_id: data.project.id,
+        type
+      } satisfies CardPartial)
+      .select();
+
+    cards = [...cards, ...result ?? []];
   }
 
   onMount(() => {
@@ -78,7 +94,7 @@
 </svelte:head>
 
 <div class="flex h-full">
-  <UtilityBar />
+  <UtilityBar on:click={createCard} />
 
   <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div
@@ -88,10 +104,11 @@
     on:mousemove={mouseMove}>
     <!-- Cards -->
     {#if cards}
-      {#each cards as card}
+      {#each cards as card (card.id)}
         <Card
           {card}
           supabase={data.supabase}
+          session={data.session}
           on:delete={deleteCard} />
       {/each}
     {/if}
