@@ -48,7 +48,7 @@
       </Button>
     </DropdownMenu.Trigger>
 
-    <DropdownMenu.Content class="w-64 bg-opacity-95 backdrop-blur-md">
+    <DropdownMenu.Content class="w-64">
       <DropdownMenu.Label>
         <h1>
           {data.session?.user.user_metadata.first_name}
