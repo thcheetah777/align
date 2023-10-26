@@ -28,7 +28,7 @@
 </svelte:head>
 
 <!-- Navbar -->
-<nav class="flex justify-between items-center px-6 border-b border-border h-14">
+<nav class="flex justify-between items-center px-8 border-b border-border h-14">
   <header>
     <Logo href="/dashboard" class="w-20" />
   </header>
@@ -48,7 +48,7 @@
       </Button>
     </DropdownMenu.Trigger>
 
-    <DropdownMenu.Content class="w-64">
+    <DropdownMenu.Content class="w-64 bg-opacity-95 backdrop-blur-md">
       <DropdownMenu.Label>
         <h1>
           {data.session?.user.user_metadata.first_name}
@@ -59,15 +59,15 @@
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
         <DropdownMenu.Item href="/dashboard">
-          <iconify-icon icon="lucide:home" class="text-lg mr-2"></iconify-icon>
+          <iconify-icon icon="lucide:home" class="text-base mr-2"></iconify-icon>
           <span>Dashboard</span>
         </DropdownMenu.Item>
         <DropdownMenu.Item href="/profile">
-          <iconify-icon icon="lucide:user" class="text-lg mr-2"></iconify-icon>
+          <iconify-icon icon="lucide:user" class="text-base mr-2"></iconify-icon>
           <span>Profile</span>
         </DropdownMenu.Item>
         <DropdownMenu.Item href="/settings">
-          <iconify-icon icon="lucide:settings" class="text-lg mr-2"></iconify-icon>
+          <iconify-icon icon="lucide:settings" class="text-base mr-2"></iconify-icon>
           <span>Settings</span>
         </DropdownMenu.Item>
       </DropdownMenu.Group>
@@ -75,7 +75,7 @@
       <DropdownMenu.Group>
         <a href="https://github.com/thcheetah777/align" target="_blank">
           <DropdownMenu.Item>
-            <iconify-icon icon="lucide:github" class="text-lg mr-2"></iconify-icon>
+            <iconify-icon icon="lucide:github" class="text-base mr-2"></iconify-icon>
             <span>GitHub</span>
             <DropdownMenu.Shortcut>
               <iconify-icon icon="lucide:external-link" class="text-base"></iconify-icon>
@@ -83,7 +83,7 @@
           </DropdownMenu.Item>
         </a>
         <DropdownMenu.Item on:click={logOut}>
-          <iconify-icon icon="lucide:log-out" class="text-lg mr-2"></iconify-icon>
+          <iconify-icon icon="lucide:log-out" class="text-base mr-2"></iconify-icon>
           <span>Log Out</span>
         </DropdownMenu.Item>
       </DropdownMenu.Group>

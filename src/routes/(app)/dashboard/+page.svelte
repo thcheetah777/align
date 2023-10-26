@@ -49,7 +49,7 @@
         New Project
         <iconify-icon icon="lucide:plus" class="text-lg ml-1"></iconify-icon>
       </Dialog.Trigger>
-      <Dialog.Content>
+      <Dialog.Content class="bg-opacity-80">
         <Dialog.Header>
           <Dialog.Title>Create a new project</Dialog.Title>
           <Dialog.Description>
