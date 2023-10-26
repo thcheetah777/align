@@ -5,6 +5,7 @@
   import { Input } from "$lib/components/ui/input";
   import { goto } from "$app/navigation";
   import toast from "svelte-french-toast";
+  import Logo from "$lib/components/Logo.svelte";
 
   export let data: PageData;
 
@@ -44,9 +45,7 @@
 </svelte:head>
 
 <main class="h-screen flex flex-col justify-evenly items-center">
-  <a href="/">
-    <img src="/logo.svg" alt="Align Logo">
-  </a>
+  <Logo href="/" />
 
   <form class="space-y-4 w-[28rem]" on:submit|preventDefault={signUp}>
     <div>

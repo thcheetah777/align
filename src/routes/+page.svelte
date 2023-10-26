@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { PageData } from "./$types";
   import { Button } from "$lib/components/ui/button";
+  import Logo from "$lib/components/Logo.svelte";
 
   export let data: PageData;
 </script>
@@ -10,9 +11,7 @@
 </svelte:head>
 
 <main class="h-screen flex flex-col justify-evenly items-center">
-  <a href="/">
-    <img src="/logo.svg" alt="Align Logo">
-  </a>
+  <Logo href="/" />
 
   <div class="space-y-6 text-center">
     <h1 class="font-bold text-6xl leading-[4.5rem]">

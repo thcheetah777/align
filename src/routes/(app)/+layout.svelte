@@ -5,6 +5,7 @@
   import { Button } from "$lib/components/ui/button";
   import toast from "svelte-french-toast";
   import { goto } from "$app/navigation";
+  import Logo from "$lib/components/Logo.svelte";
 
   export let data: LayoutData;
 
@@ -31,9 +32,7 @@
 <!-- Navbar -->
 <nav class="flex justify-between items-center px-6 border-b border-border h-14">
   <header>
-    <a href="/dashboard">
-      <img src="/logo.svg" alt="Align Logo" class="w-20">
-    </a>
+    <Logo href="/dashboard" class="w-20" />
   </header>
 
   <DropdownMenu.Root>
@@ -81,7 +80,7 @@
             <iconify-icon icon="lucide:github" class="text-lg mr-2"></iconify-icon>
             <span>GitHub</span>
             <DropdownMenu.Shortcut>
-              <iconify-icon icon="lucide:external-link" class="text-lg"></iconify-icon>
+              <iconify-icon icon="lucide:external-link" class="text-base"></iconify-icon>
             </DropdownMenu.Shortcut>
           </DropdownMenu.Item>
         </a>
