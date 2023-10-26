@@ -28,7 +28,7 @@
 </svelte:head>
 
 <!-- Navbar -->
-<nav class="flex justify-between items-center px-8 border-b border-border h-14">
+<nav class="flex fixed top-0 w-full justify-between items-center px-8 border-b border-border h-nav">
   <header>
     <Logo href="/dashboard" class="w-20" />
   </header>
@@ -56,7 +56,9 @@
         </h1>
         <h2 class="font-light">{data.session?.user.email}</h2>
       </DropdownMenu.Label>
+
       <DropdownMenu.Separator />
+
       <DropdownMenu.Group>
         <DropdownMenu.Item href="/dashboard">
           <iconify-icon icon="lucide:home" class="text-base mr-2"></iconify-icon>
@@ -71,7 +73,9 @@
           <span>Settings</span>
         </DropdownMenu.Item>
       </DropdownMenu.Group>
+
       <DropdownMenu.Separator />
+
       <DropdownMenu.Group>
         <a href="https://github.com/thcheetah777/align" target="_blank">
           <DropdownMenu.Item>
@@ -91,4 +95,6 @@
   </DropdownMenu.Root>
 </nav>
 
-<slot />
+<div class="pt-nav overflow-auto h-screen">
+  <slot />
+</div>

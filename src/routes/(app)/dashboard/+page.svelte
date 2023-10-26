@@ -18,7 +18,6 @@
   let renamingProject = false;
   let newProjectIcon = "😆";
   let newProjectName = "Untitled Project";
-  let renameProjectName = "";
 
   async function createProject(): Promise<void> {
     creatingProject = true;
@@ -101,7 +100,7 @@
     <div class="grid grid-cols-3 gap-4">
       {#each data.projects as project}
         <ContextMenu.Root>
-          <ContextMenu.Trigger class="border border-border hover:border-white rounded-lg duration-200">
+          <ContextMenu.Trigger class="border border-border hover:border-primary rounded-lg duration-200">
             <a class="flex gap-2 p-6" href="/project/{project.id}">
               <i class="text-4xl not-italic">{project.icon}</i>
 

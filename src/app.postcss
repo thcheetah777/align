@@ -57,3 +57,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer base {
+  .dotted-background {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1.5px, transparent 0);
+    background-position: 0 0;
+    background-attachment: local;
+    background-size: 20px 20px;
+  }
+
+  .skinny-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .skinny-scrollbar::-webkit-scrollbar-track, .skinny-scrollbar::-webkit-scrollbar-corner {
+    background-color: transparent;
+  }
+
+  .skinny-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: theme("colors.border");
+  }
+}

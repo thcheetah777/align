@@ -56,7 +56,10 @@ const config = {
 			fontFamily: {
         accent: ["Josefin Sans Variable", ...fontFamily.serif],
 				sans: ["Inter Variable", ...fontFamily.sans]
-			}
+			},
+      spacing: {
+        nav: "3.5rem",
+      },
 		}
 	},
 };
