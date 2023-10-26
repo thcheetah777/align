@@ -9,8 +9,6 @@
 
   export let data: LayoutData;
 
-  console.log(data.session?.user.email);
-
   async function logOut(): Promise<void> {
     await toast.promise(
       data.supabase.auth.signOut(),

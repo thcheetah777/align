@@ -3,8 +3,9 @@ export type Tables<T extends keyof Database["public"]["Tables"]> = Database["pub
 export type Enums<T extends keyof Database["public"]["Enums"]> = Database["public"]["Enums"][T];
 
 export type Card = Tables<"cards">;
-export type CardPartial = Partial<Tables<"cards">>;
+export type CardPartial = Partial<Card>;
 export type Project = Tables<"projects">;
+export type ProjectPartial = Partial<Project>;
 
 
 // Database
