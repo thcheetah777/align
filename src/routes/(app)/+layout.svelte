@@ -76,10 +76,15 @@
       </DropdownMenu.Group>
       <DropdownMenu.Separator />
       <DropdownMenu.Group>
-        <DropdownMenu.Item href="https://github.com/thcheetah777/align">
-          <iconify-icon icon="lucide:github" class="text-lg mr-2"></iconify-icon>
-          <span>GitHub</span>
-        </DropdownMenu.Item>
+        <a href="https://github.com/thcheetah777/align" target="_blank">
+          <DropdownMenu.Item>
+            <iconify-icon icon="lucide:github" class="text-lg mr-2"></iconify-icon>
+            <span>GitHub</span>
+            <DropdownMenu.Shortcut>
+              <iconify-icon icon="lucide:external-link" class="text-lg"></iconify-icon>
+            </DropdownMenu.Shortcut>
+          </DropdownMenu.Item>
+        </a>
         <DropdownMenu.Item on:click={logOut}>
           <iconify-icon icon="lucide:log-out" class="text-lg mr-2"></iconify-icon>
           <span>Log Out</span>
