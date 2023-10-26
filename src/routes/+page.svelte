@@ -1,25 +1,8 @@
 <script lang="ts">
-  import type { LayoutData } from "./$types";
+  import type { PageData } from "./$types";
   import { Button } from "$lib/components/ui/button";
-  import { onMount } from "svelte";
-  import { invalidate } from "$app/navigation";
 
-  export let data: LayoutData;
-
-  let { supabase, session } = data;
-  $: ({ supabase, session } = data);
-
-  onMount(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, _session) => {
-      if (_session?.expires_at !== session?.expires_at) {
-        invalidate("supabase:auth");
-      }
-    });
-
-    return () => subscription.unsubscribe();
-  });
+  export let data: PageData;
 </script>
 
 <svelte:head>
@@ -48,14 +31,14 @@
 
   {#if data.session}
     <Button size="lg" href="/dashboard">
-      <iconify-icon icon="mdi:home" class="text-xl mr-1"></iconify-icon>
+      <iconify-icon icon="lucide:home" class="text-lg mr-2"></iconify-icon>
       <span>Go To Dashboard</span>
     </Button>
   {:else}
     <div class="space-x-2">
       <Button size="lg" class="group" href="/signup">
         Get Started
-        <iconify-icon icon="mdi:arrow-right" class="text-xl ml-1 group-hover:translate-x-1 duration-200"></iconify-icon>
+        <iconify-icon icon="lucide:arrow-right" class="text-xl ml-1 group-hover:translate-x-1 duration-200"></iconify-icon>
       </Button>
 
       <Button size="lg" variant="outline" href="/login">

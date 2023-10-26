@@ -61,7 +61,7 @@
 
     <Button type="submit" class="w-32" disabled={loading}>
       {#if loading}
-        <iconify-icon icon="mdi:loading" class="text-lg animate-spin"></iconify-icon>
+        <iconify-icon icon="lucide:loader-2" class="text-lg animate-spin"></iconify-icon>
       {:else}
         Log In
       {/if}

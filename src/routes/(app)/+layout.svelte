@@ -1,0 +1,92 @@
+<script lang="ts">
+  import type { LayoutData } from "./$types";
+  import * as Avatar from "$lib/components/ui/avatar";
+  import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
+  import { Button } from "$lib/components/ui/button";
+  import toast from "svelte-french-toast";
+  import { goto } from "$app/navigation";
+
+  export let data: LayoutData;
+
+  console.log(data.session?.user.email);
+
+  async function logOut(): Promise<void> {
+    await toast.promise(
+      data.supabase.auth.signOut(),
+      {
+        loading: "Logging out...",
+        success: "Logged out successfully!",
+        error: "There was an error logging you out",
+      },
+    );
+
+    goto("/");
+  }
+</script>
+
+<svelte:head>
+  <title>Align - Dashboard</title>
+</svelte:head>
+
+<!-- Navbar -->
+<nav class="flex justify-between items-center px-6 border-b border-border h-14">
+  <header>
+    <a href="/dashboard">
+      <img src="/logo.svg" alt="Align Logo" class="w-20">
+    </a>
+  </header>
+
+  <DropdownMenu.Root>
+    <DropdownMenu.Trigger asChild let:builder>
+      <Button builders={[builder]} variant="ghost" size="icon" class="rounded-full">
+        <Avatar.Root>
+          <Avatar.Image
+            src="https://api.dicebear.com/7.x/lorelei/svg?seed={data.session?.user.email}"
+            alt="{data.session?.user.email}" />
+          <Avatar.Fallback>
+            {data.session?.user.user_metadata.first_name.charAt(0)}
+            {data.session?.user.user_metadata.last_name.charAt(1)}
+          </Avatar.Fallback>
+        </Avatar.Root>
+      </Button>
+    </DropdownMenu.Trigger>
+
+    <DropdownMenu.Content class="w-64">
+      <DropdownMenu.Label>
+        <h1>
+          {data.session?.user.user_metadata.first_name}
+          {data.session?.user.user_metadata.last_name}
+        </h1>
+        <h2 class="font-light">{data.session?.user.email}</h2>
+      </DropdownMenu.Label>
+      <DropdownMenu.Separator />
+      <DropdownMenu.Group>
+        <DropdownMenu.Item href="/dashboard">
+          <iconify-icon icon="lucide:home" class="text-lg mr-2"></iconify-icon>
+          <span>Dashboard</span>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item href="/profile">
+          <iconify-icon icon="lucide:user" class="text-lg mr-2"></iconify-icon>
+          <span>Profile</span>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item href="/settings">
+          <iconify-icon icon="lucide:settings" class="text-lg mr-2"></iconify-icon>
+          <span>Settings</span>
+        </DropdownMenu.Item>
+      </DropdownMenu.Group>
+      <DropdownMenu.Separator />
+      <DropdownMenu.Group>
+        <DropdownMenu.Item href="https://github.com/thcheetah777/align">
+          <iconify-icon icon="lucide:github" class="text-lg mr-2"></iconify-icon>
+          <span>GitHub</span>
+        </DropdownMenu.Item>
+        <DropdownMenu.Item on:click={logOut}>
+          <iconify-icon icon="lucide:log-out" class="text-lg mr-2"></iconify-icon>
+          <span>Log Out</span>
+        </DropdownMenu.Item>
+      </DropdownMenu.Group>
+    </DropdownMenu.Content>
+  </DropdownMenu.Root>
+</nav>
+
+<slot />
