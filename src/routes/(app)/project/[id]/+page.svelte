@@ -6,6 +6,8 @@
   import Card from "$lib/components/Card.svelte";
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
+  import * as UICard from "$lib/components/ui/card";
+  import { Button } from "$lib/components/ui/button";
 
   export let data: PageData;
 
@@ -111,21 +113,28 @@
       <div
         class="py-6 right-6 h-[calc(100vh-theme('spacing.nav'))] fixed w-80 bottom-0"
         transition:fly={{ x: 320 + 16, duration: 450, opacity: 1, easing: backInOut }}>
-        <div class="border border-border bg-background rounded-xl p-6 overflow-auto w-full h-full">
-          <div class="space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="font-bold text-xl">
-                <i class="not-italic">{data.project.icon}</i>
-                <h1 class="inline">{data.project.name}</h1>
-              </span>
+        <UICard.Root class="border border-border bg-background rounded-xl overflow-auto w-full h-full">
+          <UICard.Header>
+            <UICard.Title tag="h1" class="flex justify-between items-center">
+              <div class="flex items-center gap-1">
+                <Button variant="ghost" size="icon" class="w-8 h-8 text-lg">
+                  {data.project.icon}
+                </Button>
+                <span>{data.project.name}</span>
+              </div>
+
               <button on:click={() => sidebarOpen = false}>
                 <iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>
               </button>
-            </div>
+            </UICard.Title>
+            <UICard.Description>
+              {data.project.description}
+            </UICard.Description>
+          </UICard.Header>
+          <UICard.Content>
 
-            <h2 class="text-faded text-sm">{data.project.description}</h2>
-          </div>
-        </div>
+          </UICard.Content>
+        </UICard.Root>
       </div>
     {/if}
   </div>
