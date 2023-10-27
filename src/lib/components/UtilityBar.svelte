@@ -20,9 +20,9 @@
       icon: "lucide:image",
     },
     {
-      cardType: "color",
-      name: "Color",
-      icon: "lucide:palette",
+      cardType: "link",
+      name: "Link",
+      icon: "lucide:link",
     },
     {
       cardType: "column",
@@ -39,7 +39,7 @@
   const dispatch = createEventDispatcher();
 </script>
 
-<aside class="flex flex-col gap-3 p-3 bg-background border-r border-border w-16">
+<aside class="flex flex-col gap-4 p-4 bg-background border-r border-border w-16">
   {#each utilities as utility}
     <button
       class="text-primary flex flex-col items-center pl-0 hover:pl-2 duration-100"

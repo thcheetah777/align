@@ -18,8 +18,8 @@
       The Whiteboard
       <br>
       For
-      <span class="bg-clip-text text-transparent bg-gradient-to-r from-emerald-500 to-teal-500">
-        Perfectionists
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500">
+        Thinkers
       </span>
     </h1>
 
@@ -46,3 +46,10 @@
     </div>
   {/if}
 </main>
+
+<style>
+  span.changing-text::before {
+    content: "";
+    animation: 2s linear infinite animate;
+  }
+</style>

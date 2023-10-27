@@ -26,6 +26,7 @@ export interface Database {
           created_at: string
           id: number
           project_id: string
+          thumbnail: string | null
           type: Database["public"]["Enums"]["card_type"]
           x_position: number
           y_position: number
@@ -35,6 +36,7 @@ export interface Database {
           created_at?: string
           id?: number
           project_id: string
+          thumbnail?: string | null
           type: Database["public"]["Enums"]["card_type"]
           x_position?: number
           y_position?: number
@@ -44,6 +46,7 @@ export interface Database {
           created_at?: string
           id?: number
           project_id?: string
+          thumbnail?: string | null
           type?: Database["public"]["Enums"]["card_type"]
           x_position?: number
           y_position?: number

@@ -7,6 +7,7 @@
 
   import Note from "./cards/Note.svelte";
   import Image from "./cards/Image.svelte";
+  import Link from "./cards/Link.svelte";
 
   export let card: Card;
   export let session: Session | null;
@@ -84,6 +85,11 @@
       content={card.content ?? ""}
       on:save={save}
       {supabase} {session} />
+  {:else if card.type === "link"}
+    <Link
+      content={card.content ?? ""}
+      thumbnail={card.thumbnail}
+      on:save={save} />
   {/if}
 
   <!-- Card actions -->
