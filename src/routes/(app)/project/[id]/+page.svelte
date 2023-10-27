@@ -8,6 +8,7 @@
   import { backInOut } from "svelte/easing";
   import * as UICard from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
+	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
 
   export let data: PageData;
 
@@ -16,6 +17,7 @@
   let sidebarOpen = true;
 
   let cards = data.cards!;
+  let project = data.project;
 
   // Whiteboard panning mouse events
   function mouseDown(e: MouseEvent): void {
@@ -60,12 +62,30 @@
       .from("cards")
       .insert({
         content: type === "image" ? "/image-placeholder.png" : "",
-        project_id: data.project.id,
+        project_id: project.id,
         type
       } satisfies CardPartial)
       .select();
 
     cards = [...cards, ...result ?? []];
+  }
+
+  // Project management
+  async function saveProject(): Promise<void> {
+    await data.supabase
+      .from("projects")
+      .update({
+        icon: project.icon,
+        name: project.name,
+        description: project.description,
+        status: project.status,
+      })
+      .eq("id", project.id);
+  }
+
+  function setIcon(event: ComponentEvents<EmojiPicker>["pick"]) {
+    project.icon = event.detail;
+    saveProject();
   }
 
   onMount(() => {
@@ -75,7 +95,7 @@
 </script>
 
 <svelte:head>
-  <title>Align - {data.project.name}</title>
+  <title>Align - {project.name}</title>
 </svelte:head>
 
 <div class="flex h-full">
@@ -117,10 +137,15 @@
           <UICard.Header>
             <UICard.Title tag="h1" class="flex justify-between items-center">
               <div class="flex items-center gap-1">
-                <Button variant="ghost" size="icon" class="w-8 h-8 text-lg">
-                  {data.project.icon}
-                </Button>
-                <span>{data.project.name}</span>
+                <EmojiPicker on:pick={setIcon}>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    class="w-8 h-8 text-lg">
+                    {project.icon}
+                  </Button>
+                </EmojiPicker>
+                <span>{project.name}</span>
               </div>
 
               <button on:click={() => sidebarOpen = false}>
@@ -128,7 +153,7 @@
               </button>
             </UICard.Title>
             <UICard.Description>
-              {data.project.description}
+              {project.description}
             </UICard.Description>
           </UICard.Header>
           <UICard.Content>

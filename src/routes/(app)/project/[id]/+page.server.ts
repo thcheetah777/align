@@ -18,7 +18,5 @@ export const load = (async ({ params, locals: { supabase } }) => {
     .select("*")
     .eq("project_id", project.id);
 
-  console.log(cards);
-
   return { project, cards };
 }) satisfies PageServerLoad;
