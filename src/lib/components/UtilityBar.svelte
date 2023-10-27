@@ -42,10 +42,10 @@
 <aside class="flex flex-col gap-3 p-3 bg-background border-r border-border w-16">
   {#each utilities as utility}
     <button
-      class="text-primary flex flex-col items-center relative hover:pl-2 pl-0 duration-100"
+      class="text-primary flex flex-col items-center pl-0 hover:pl-2 duration-100"
       on:click={() => dispatch("click", utility.cardType)}>
-      <iconify-icon icon={utility.icon} class="text-2xl"></iconify-icon>
-      <small class="text-[0.7rem]">{utility.name}</small>
+      <iconify-icon icon={utility.icon} class="text-xl"></iconify-icon>
+      <small class="text-[0.7rem] font-medium">{utility.name}</small>
     </button>
   {/each}
 </aside>
