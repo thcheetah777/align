@@ -46,10 +46,3 @@
     </div>
   {/if}
 </main>
-
-<style>
-  span.changing-text::before {
-    content: "";
-    animation: 2s linear infinite animate;
-  }
-</style>
