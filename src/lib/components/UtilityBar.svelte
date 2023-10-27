@@ -12,27 +12,27 @@
     {
       cardType: "note",
       name: "Note",
-      icon: "material-symbols:sticky-note-2-outline",
+      icon: "lucide:sticky-note",
     },
     {
       cardType: "image",
       name: "Image",
-      icon: "material-symbols:imagesmode-outline",
+      icon: "lucide:image",
     },
     {
       cardType: "color",
       name: "Color",
-      icon: "mdi:palette",
+      icon: "lucide:palette",
     },
     {
       cardType: "column",
       name: "Column",
-      icon: "material-symbols:table-rows-narrow-outline-sharp"
+      icon: "lucide:rows"
     },
     {
       cardType: "row",
       name: "Row",
-      icon: "material-symbols:view-column-outline"
+      icon: "lucide:columns"
     }
   ];
 
