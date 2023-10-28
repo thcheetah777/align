@@ -6,6 +6,7 @@
   import toast from "svelte-french-toast";
   import { goto } from "$app/navigation";
   import Logo from "$lib/components/Logo.svelte";
+  import { currentProject } from "$lib/stores";
 
   export let data: LayoutData;
 
@@ -29,8 +30,16 @@
 
 <!-- Navbar -->
 <nav class="flex fixed top-0 w-full justify-between items-center px-8 border-b border-border h-nav">
-  <header>
+  <header class="flex items-center">
     <Logo href="/dashboard" class="w-20" />
+
+    {#if $currentProject}
+      <iconify-icon icon="lucide:chevron-right" class="text-base ml-3 mr-1"></iconify-icon>
+      <a class="flex gap-0.5" href="/project/{$currentProject.id}">
+        <span>{$currentProject.icon}</span>
+        <span class="font-semibold">{$currentProject.name}</span>
+      </a>
+    {/if}
   </header>
 
   <DropdownMenu.Root>

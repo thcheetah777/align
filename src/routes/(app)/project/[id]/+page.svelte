@@ -9,6 +9,7 @@
   import * as UICard from "$lib/components/ui/card";
   import { Button } from "$lib/components/ui/button";
 	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
+  import { currentProject } from "$lib/stores";
 
   export let data: PageData;
 
@@ -90,7 +91,12 @@
 
   onMount(() => {
     document.addEventListener("mouseup", mouseUp);
-    return () => document.removeEventListener("mouseup", mouseUp);
+    currentProject.set(project);
+
+    return () => {
+      document.removeEventListener("mouseup", mouseUp);
+      currentProject.set(null);
+    }
   });
 </script>
 
