@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Enums } from "$src/database.types";
-  import { cn } from "$lib/utils";
+  import { cn, projectStatuses } from "$lib/utils";
 
   export let status: Enums<"project_status">;
 </script>

@@ -2,14 +2,18 @@
   import type { PageData } from "./$types";
   import { onMount, type ComponentEvents } from "svelte";
   import type { CardPartial, Enums } from "$src/database.types";
-  import UtilityBar from "$lib/components/UtilityBar.svelte";
-  import Card from "$lib/components/Card.svelte";
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
-  import * as UICard from "$lib/components/ui/card";
-  import { Button } from "$lib/components/ui/button";
-	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
   import { currentProject } from "$lib/stores";
+
+  import { Button } from "$lib/components/ui/button";
+  import * as UICard from "$lib/components/ui/card";
+  import * as Select from "$lib/components/ui/select";
+	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
+  import UtilityBar from "$lib/components/UtilityBar.svelte";
+  import Card from "$lib/components/Card.svelte";
+  import { projectStatuses } from "$lib/utils";
+  import ProjectStatus from "$lib/components/ProjectStatus.svelte";
 
   export let data: PageData;
 
@@ -19,6 +23,7 @@
 
   let cards = data.cards!;
   let project = data.project;
+  let projectStatus = project.status as string | null;
 
   // Whiteboard panning mouse events
   function mouseDown(e: MouseEvent): void {
@@ -84,8 +89,13 @@
       .eq("id", project.id);
   }
 
-  function setIcon(event: ComponentEvents<EmojiPicker>["pick"]) {
+  function setIcon(event: ComponentEvents<EmojiPicker>["pick"]): void {
     project.icon = event.detail;
+    saveProject();
+  }
+
+  function setStatus(status: Enums<"project_status">): void {
+    project.status = status;
     saveProject();
   }
 
@@ -163,7 +173,25 @@
             </UICard.Description>
           </UICard.Header>
           <UICard.Content>
-
+            <Select.Root>
+              <Select.Trigger>
+                <Select.Value placeholder={projectStatus ?? "Choose a status..."} />
+              </Select.Trigger>
+              <Select.Content>
+                <Select.Group>
+                  {#each projectStatuses as status}
+                    <Select.Item
+                      value={status}
+                      label={status}
+                      class="flex items-center gap-2"
+                      on:click={() => setStatus(status)}>
+                      <ProjectStatus {status} />
+                      <span>{status}</span>
+                    </Select.Item>
+                  {/each}
+                </Select.Group>
+              </Select.Content>
+            </Select.Root>
           </UICard.Content>
         </UICard.Root>
       </div>

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import type { Enums } from "$src/database.types";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -20,6 +21,14 @@ export function getTime(date: string) {
     minute: "numeric",
   });
 }
+
+export const projectStatuses: Enums<"project_status">[] = [
+  "Backlog",
+  "Todo",
+  "In Progress",
+  "Finished",
+  "Canceled",
+];
 
 type FlyAndScaleParams = {
   y?: number;
