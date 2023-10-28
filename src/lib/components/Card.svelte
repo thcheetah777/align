@@ -46,7 +46,7 @@
   }
 
   async function save(event?: ComponentEvents<Note>["save"]): Promise<void> {
-    console.log("🔃 Saving...");
+    console.log("🔃 Saving card...");
 
     await supabase
       .from("cards")
@@ -57,7 +57,7 @@
       })
       .eq("id", card.id);
 
-    console.log("✅ Saved!");
+    console.log("✅ Card saved!");
   }
 
   onMount(() => {

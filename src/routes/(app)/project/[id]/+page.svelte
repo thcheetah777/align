@@ -78,6 +78,8 @@
 
   // Project management
   async function saveProject(): Promise<void> {
+    console.log("🔃 Saving project...");
+
     await data.supabase
       .from("projects")
       .update({
@@ -87,6 +89,8 @@
         status: project.status,
       })
       .eq("id", project.id);
+
+    console.log("✅ Project saved!");
   }
 
   function setIcon(event: ComponentEvents<EmojiPicker>["pick"]): void {
