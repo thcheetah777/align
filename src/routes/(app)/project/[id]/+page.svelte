@@ -19,7 +19,7 @@
 
   let whiteboard: HTMLDivElement;
   let panning = false;
-  let sidebarOpen = true;
+  let sidebarOpen: boolean;
 
   let cards = data.cards!;
   let project = data.project;
@@ -91,6 +91,7 @@
 
   function setIcon(event: ComponentEvents<EmojiPicker>["pick"]): void {
     project.icon = event.detail;
+    currentProject.set(project);
     saveProject();
   }
 
@@ -99,9 +100,17 @@
     saveProject();
   }
 
+  // UI stuff
+  function setSidebar(open: boolean): void {
+    sidebarOpen = open;
+    localStorage.setItem("sidebar", open ? "1" : "0");
+  }
+
   onMount(() => {
     document.addEventListener("mouseup", mouseUp);
     currentProject.set(project);
+
+    sidebarOpen = parseInt(localStorage.getItem("sidebar") ?? "1") > 0;
 
     return () => {
       document.removeEventListener("mouseup", mouseUp);
@@ -137,7 +146,7 @@
     <!-- Open sidebar button -->
     {#if !sidebarOpen}
       <button
-        on:click={() => sidebarOpen = true}
+        on:click={() => setSidebar(true)}
         transition:fly={{ x: 24, duration: 350 }}
         class="fixed -right-6 top-1/2 -translate-y-1/2 rounded-full bg-background aspect-square w-12 flex items-center px-1 border border-border">
         <iconify-icon icon="lucide:chevron-left" class="text-xl text-primary"></iconify-icon>
@@ -164,7 +173,7 @@
                 <span>{project.name}</span>
               </div>
 
-              <button on:click={() => sidebarOpen = false}>
+              <button on:click={() => setSidebar(false)}>
                 <iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>
               </button>
             </UICard.Title>
