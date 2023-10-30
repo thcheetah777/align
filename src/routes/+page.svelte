@@ -2,8 +2,21 @@
   import type { PageData } from "./$types";
   import { Button } from "$lib/components/ui/button";
   import Logo from "$lib/components/Logo.svelte";
+  import { onMount } from "svelte";
+  import { cn } from "$lib/utils";
 
   export let data: PageData;
+
+  let index = 0;
+
+  onMount(() => {
+    const loop = setInterval(() => {
+      // Woah, magic
+      index = ++index % 3;
+    }, 2000);
+
+    return () => clearInterval(loop);
+  });
 </script>
 
 <svelte:head>
@@ -15,11 +28,25 @@
 
   <div class="space-y-6 text-center">
     <h1 class="font-bold text-6xl leading-[4.5rem]">
-      The Whiteboard
+      The Whiteboard For
       <br>
-      For
-      <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500">
-        Thinkers
+      <span class={cn(
+        "bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500 relative before:content-['Thinkers.'] before:absolute before:text-white before:duration-700",
+        index === 0 ? "before:opacity-0" : "before:opacity-100"
+      )}>
+        Thinkers.
+      </span>
+      <span class={cn(
+        "bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-500 relative before:content-['Ideators.'] before:absolute before:text-white before:duration-700",
+        index === 1 ? "before:opacity-0" : "before:opacity-100"
+      )}>
+        Ideators.
+      </span>
+      <span class={cn(
+        "bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-pink-500 relative before:content-['Perfectionists.'] before:absolute before:text-white before:duration-700",
+        index === 2 ? "before:opacity-0" : "before:opacity-100"
+      )}>
+        Perfectionists.
       </span>
     </h1>
 
