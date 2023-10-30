@@ -40,6 +40,16 @@
     }
   }
 
+  async function deleteProject(id: string): Promise<void> {
+    const { data: result } = await data.supabase
+      .from("projects")
+      .delete()
+      .eq("id", id)
+
+    toast.success("Project deleted!");
+    window.location = window.location;
+  }
+
   async function renameProject(id: string, newName: string): Promise<void> {
     renamingProject = true;
 
@@ -131,7 +141,7 @@
                 <iconify-icon icon="lucide:text-cursor-input" class="text-base"></iconify-icon>
               </ContextMenu.Shortcut>
             </ContextMenu.Item>
-            <ContextMenu.Item inset>
+            <ContextMenu.Item inset on:click={() => deleteProject(project.id)}>
               Delete
               <ContextMenu.Shortcut>
                 <iconify-icon icon="lucide:trash" class="text-base"></iconify-icon>
