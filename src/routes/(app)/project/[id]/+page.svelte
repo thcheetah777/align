@@ -29,6 +29,8 @@
   let project = data.project;
   let projectStatus = project.status as string | null;
 
+  $: if ($currentProject) $currentProject.name = project.name;
+
   // Whiteboard panning mouse events
   function mouseDown(e: MouseEvent): void {
     if (e.button === 1) {
@@ -177,7 +179,7 @@
         transition:fly={{ x: 320 + 16, duration: 450, opacity: 1, easing: backInOut }}>
         <UICard.Root class="border border-border bg-background rounded-xl overflow-auto skinny-scrollbar w-full h-full">
           <UICard.Header class="space-y-2">
-            <UICard.Title tag="h1" class="flex justify-between items-center">
+            <UICard.Title tag="h1" class="flex justify-between items-center gap-4">
               <div class="flex items-center gap-1.5">
                 <EmojiPicker on:pick={setIcon}>
                   <Button
@@ -187,7 +189,10 @@
                     {project.icon}
                   </Button>
                 </EmojiPicker>
-                <span>{project.name}</span>
+                <input
+                  class="text-lg outline-none bg-transparent w-full"
+                  bind:value={project.name}
+                  on:focusout={() => saveProject()} />
               </div>
 
               <button on:click={() => setSidebar(false)}>
