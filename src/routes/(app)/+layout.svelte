@@ -58,17 +58,17 @@
     </DropdownMenu.Trigger>
 
     <DropdownMenu.Content class="w-64">
-      <DropdownMenu.Label>
+      <DropdownMenu.Label class="p-3">
         <h1>
           {data.session?.user.user_metadata.first_name}
           {data.session?.user.user_metadata.last_name}
         </h1>
-        <h2 class="font-light">{data.session?.user.email}</h2>
+        <h2 class="font-light text-muted-foreground">{data.session?.user.email}</h2>
       </DropdownMenu.Label>
 
       <DropdownMenu.Separator />
 
-      <DropdownMenu.Group>
+      <DropdownMenu.Group class="space-y-1">
         <DropdownMenu.Item href="/dashboard">
           <iconify-icon icon="lucide:home" class="text-base mr-2"></iconify-icon>
           <span>Dashboard</span>
@@ -85,7 +85,7 @@
 
       <DropdownMenu.Separator />
 
-      <DropdownMenu.Group>
+      <DropdownMenu.Group class="space-y-1">
         <a href="https://github.com/thcheetah777/align" target="_blank">
           <DropdownMenu.Item>
             <iconify-icon icon="lucide:github" class="text-base mr-2"></iconify-icon>
