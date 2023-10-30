@@ -12,7 +12,6 @@
   import { Button } from "$lib/components/ui/button";
   import { Textarea } from "$lib/components/ui/textarea";
   import { Label } from "$lib/components/ui/label";
-  import { Input } from "$lib/components/ui/input";
 
 	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
   import UtilityBar from "$lib/components/UtilityBar.svelte";
