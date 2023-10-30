@@ -108,6 +108,13 @@
     saveProject();
   }
 
+  async function setLastUpdated(): Promise<void> {
+    await data.supabase
+      .from("projects")
+      .update({ last_updated: new Date().toISOString() })
+      .eq("id", data.project.id);
+  }
+
   // UI stuff
   function setSidebar(open: boolean): void {
     sidebarOpen = open;
@@ -120,9 +127,11 @@
 
     sidebarOpen = parseInt(localStorage.getItem("sidebar") ?? "1") > 0;
 
-    return () => {
+    return async () => {
       document.removeEventListener("mouseup", mouseUp);
       currentProject.set(null);
+
+      await setLastUpdated();
     }
   });
 </script>
