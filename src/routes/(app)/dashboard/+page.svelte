@@ -151,6 +151,12 @@
             </a>
           </ContextMenu.Trigger>
           <ContextMenu.Content class="w-64">
+            <ContextMenu.Item inset on:click={() => goto(`/project/${project.id}`)}>
+              Edit
+              <ContextMenu.Shortcut>
+                <iconify-icon icon="lucide:edit" class="text-base"></iconify-icon>
+              </ContextMenu.Shortcut>
+            </ContextMenu.Item>
             <ContextMenu.Item inset>
               Rename
               <ContextMenu.Shortcut>
