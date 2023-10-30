@@ -19,10 +19,11 @@
   let moving = false;
   let resizing = false;
 
+  let cardElement: HTMLDivElement;
   let x = card.x_position;
   let y = card.y_position;
-  let width = 320;
-  let height = 80;
+  let width = card.width;
+  let height = card.height;
 
   const dispatch = createEventDispatcher();
 
@@ -44,11 +45,13 @@
 
   async function stopDrag(e: MouseEvent): Promise<void> {
     if (e.button === 0) {
-      if (moving) moving = false;
-      if (resizing) resizing = false;
+      if (moving || resizing) {
+        document.body.style.cursor = "auto";
+        await save();
+      }
 
-      document.body.style.cursor = "auto";
-      // await save();
+      moving = false;
+      resizing = false;
     }
   }
 
@@ -63,8 +66,10 @@
     if (resizing) {
       e.preventDefault();
 
-      width = e.clientX - x;
-      height = e.clientY - y;
+      const cardBounds = cardElement.getBoundingClientRect();
+
+      width = e.clientX - cardBounds.left;
+      height = e.clientY - cardBounds.top;
 
       if (width <= minWidth) width = minWidth;
       if (height <= minHeight) height = minHeight;
@@ -79,6 +84,8 @@
       .update({
         x_position: x,
         y_position: y,
+        width,
+        height,
         ...event?.detail
       })
       .eq("id", card.id);
@@ -100,7 +107,8 @@
 <div
   class="group absolute w-auto h-auto duration-0"
   style="left: {x}px; top: {y}px; width: {width}px; height: {height}px;"
-  transition:scale={{ easing: backIn }}>
+  transition:scale={{ easing: backIn }}
+  bind:this={cardElement}>
   <!-- Content -->
   {#if card.type === "note"}
     <Note
@@ -143,4 +151,3 @@
     <iconify-icon icon="mdi:resize-bottom-right" class="text-xl"></iconify-icon>
   </div>
 </div>
-

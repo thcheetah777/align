@@ -24,30 +24,36 @@ export interface Database {
         Row: {
           content: string | null
           created_at: string
+          height: number
           id: number
           project_id: string
           thumbnail: string | null
           type: Database["public"]["Enums"]["card_type"]
+          width: number
           x_position: number
           y_position: number
         }
         Insert: {
           content?: string | null
           created_at?: string
+          height?: number
           id?: number
           project_id: string
           thumbnail?: string | null
           type: Database["public"]["Enums"]["card_type"]
+          width?: number
           x_position?: number
           y_position?: number
         }
         Update: {
           content?: string | null
           created_at?: string
+          height?: number
           id?: number
           project_id?: string
           thumbnail?: string | null
           type?: Database["public"]["Enums"]["card_type"]
+          width?: number
           x_position?: number
           y_position?: number
         }
