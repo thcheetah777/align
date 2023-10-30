@@ -7,11 +7,13 @@
   import { currentProject } from "$lib/stores";
   import { projectStatuses } from "$lib/utils";
 
+  import * as UICard from "$lib/components/ui/card";
+  import * as Select from "$lib/components/ui/select";
   import { Button } from "$lib/components/ui/button";
   import { Textarea } from "$lib/components/ui/textarea";
   import { Label } from "$lib/components/ui/label";
-  import * as UICard from "$lib/components/ui/card";
-  import * as Select from "$lib/components/ui/select";
+  import { Input } from "$lib/components/ui/input";
+
 	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
   import UtilityBar from "$lib/components/UtilityBar.svelte";
   import Card from "$lib/components/Card.svelte";
@@ -126,7 +128,7 @@
 </script>
 
 <svelte:head>
-  <title>Align - {project.name}</title>
+  <title>{project.name} {project.icon} - Align</title>
 </svelte:head>
 
 <div class="flex h-full">
