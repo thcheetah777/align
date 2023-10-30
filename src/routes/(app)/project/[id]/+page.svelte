@@ -5,14 +5,16 @@
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
   import { currentProject } from "$lib/stores";
+  import { projectStatuses } from "$lib/utils";
 
   import { Button } from "$lib/components/ui/button";
+  import { Textarea } from "$lib/components/ui/textarea";
+  import { Label } from "$lib/components/ui/label";
   import * as UICard from "$lib/components/ui/card";
   import * as Select from "$lib/components/ui/select";
 	import EmojiPicker from "$lib/components/EmojiPicker.svelte";
   import UtilityBar from "$lib/components/UtilityBar.svelte";
   import Card from "$lib/components/Card.svelte";
-  import { projectStatuses } from "$lib/utils";
   import ProjectStatus from "$lib/components/ProjectStatus.svelte";
 
   export let data: PageData;
@@ -162,10 +164,10 @@
       <div
         class="py-6 right-6 h-[calc(100vh-theme('spacing.nav'))] fixed w-80 bottom-0"
         transition:fly={{ x: 320 + 16, duration: 450, opacity: 1, easing: backInOut }}>
-        <UICard.Root class="border border-border bg-background rounded-xl overflow-auto w-full h-full">
-          <UICard.Header>
+        <UICard.Root class="border border-border bg-background rounded-xl overflow-auto skinny-scrollbar w-full h-full">
+          <UICard.Header class="space-y-2">
             <UICard.Title tag="h1" class="flex justify-between items-center">
-              <div class="flex items-center gap-1">
+              <div class="flex items-center gap-1.5">
                 <EmojiPicker on:pick={setIcon}>
                   <Button
                     variant="ghost"
@@ -181,32 +183,40 @@
                 <iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>
               </button>
             </UICard.Title>
-            {#if project.description}
-              <UICard.Description>
-                {project.description}
-              </UICard.Description>
-            {/if}
+
+            <UICard.Description class="text-white">
+              <Select.Root>
+                <Select.Trigger>
+                  <Select.Value placeholder={projectStatus ?? "Choose a status..."} />
+                </Select.Trigger>
+                <Select.Content>
+                  <Select.Group>
+                    {#each projectStatuses as status}
+                      <Select.Item
+                        value={status}
+                        label={status}
+                        class="flex items-center gap-2"
+                        on:click={() => setStatus(status)}>
+                        <ProjectStatus {status} />
+                        <span>{status}</span>
+                      </Select.Item>
+                    {/each}
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </UICard.Description>
           </UICard.Header>
-          <UICard.Content>
-            <Select.Root>
-              <Select.Trigger>
-                <Select.Value placeholder={projectStatus ?? "Choose a status..."} />
-              </Select.Trigger>
-              <Select.Content>
-                <Select.Group>
-                  {#each projectStatuses as status}
-                    <Select.Item
-                      value={status}
-                      label={status}
-                      class="flex items-center gap-2"
-                      on:click={() => setStatus(status)}>
-                      <ProjectStatus {status} />
-                      <span>{status}</span>
-                    </Select.Item>
-                  {/each}
-                </Select.Group>
-              </Select.Content>
-            </Select.Root>
+          <UICard.Content class="space-y-4">
+            <div class="space-y-1">
+              <Label for="description">Description</Label>
+              <Textarea
+                id="description"
+                placeholder="Describe the project..."
+                class="skinny-scrollbar"
+                rows={4}
+                on:change={saveProject}
+                bind:value={project.description} />
+            </div>
           </UICard.Content>
         </UICard.Root>
       </div>
