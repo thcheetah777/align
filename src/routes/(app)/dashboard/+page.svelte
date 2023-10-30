@@ -3,20 +3,23 @@
   import { getDate, getTime } from "$lib/utils";
   import ProjectStatus from "$lib/components/ProjectStatus.svelte";
   import toast from "svelte-french-toast";
+  import type { ComponentEvents } from "svelte";
+  import type { ProjectPartial } from "$src/database.types";
+  import { goto } from "$app/navigation";
+  import { random } from "node-emoji";
 
   import * as Dialog from "$lib/components/ui/dialog";
   import * as ContextMenu from "$lib/components/ui/context-menu";
   import { Button, buttonVariants } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
-  import { goto } from "$app/navigation";
-  import type { ProjectPartial } from "$src/database.types";
+  import EmojiPicker from "$lib/components/EmojiPicker.svelte";
 
   export let data: PageData;
 
   let creatingProject = false;
   let renamingProject = false;
-  let newProjectIcon = "😆";
+  let newProjectIcon = random().emoji;
   let newProjectName = "Untitled Project";
 
   async function createProject(): Promise<void> {
@@ -41,7 +44,7 @@
   }
 
   async function deleteProject(id: string): Promise<void> {
-    const { data: result } = await data.supabase
+    await data.supabase
       .from("projects")
       .delete()
       .eq("id", id)
@@ -63,6 +66,10 @@
     if (result) {
       toast.success("Project renamed!");
     }
+  }
+
+  function setIcon(event: ComponentEvents<EmojiPicker>["pick"]): void {
+    newProjectIcon = event.detail;
   }
 </script>
 
@@ -86,7 +93,16 @@
         <div class="px-4 space-y-4">
           <div class="flex gap-4 items-center">
             <Label class="w-16 text-right">Icon</Label>
-            <Input id="icon" bind:value={newProjectIcon} />
+            <div class="w-full">
+              <EmojiPicker on:pick={setIcon}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  class="w-8 h-8 text-lg">
+                  {newProjectIcon}
+                </Button>
+              </EmojiPicker>
+            </div>
           </div>
           <div class="flex gap-4 items-center">
             <Label class="w-16 text-right">Name</Label>
