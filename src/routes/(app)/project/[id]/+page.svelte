@@ -181,9 +181,11 @@
                 <iconify-icon icon="lucide:x" class="text-2xl"></iconify-icon>
               </button>
             </UICard.Title>
-            <UICard.Description>
-              {project.description}
-            </UICard.Description>
+            {#if project.description}
+              <UICard.Description>
+                {project.description}
+              </UICard.Description>
+            {/if}
           </UICard.Header>
           <UICard.Content>
             <Select.Root>
