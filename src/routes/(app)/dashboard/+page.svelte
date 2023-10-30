@@ -73,6 +73,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Dashboard - Align</title>
+</svelte:head>
+
 <main class="p-8 space-y-4">
   <div class="flex w-full items-center space-x-4">
     <Input type="search" placeholder="Search..." />

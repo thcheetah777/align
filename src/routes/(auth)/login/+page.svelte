@@ -33,7 +33,7 @@
 </script>
 
 <svelte:head>
-  <title>Align - Log In</title>
+  <title>Log In - Align</title>
 </svelte:head>
 
 <main class="h-screen flex flex-col justify-evenly items-center">

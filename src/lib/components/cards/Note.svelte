@@ -16,7 +16,7 @@
 </script>
 
 <textarea
-  class="w-[20rem] h-[5rem] border border-border bg-background rounded-sm p-4 resize-none overflow-hidden outline-none duration-200 text-sm"
+  class="w-full h-full border border-border bg-background rounded-sm p-4 resize-none overflow-hidden outline-none duration-200 text-sm"
   on:change={save}
   bind:value={contentInput}
 ></textarea>

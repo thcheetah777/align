@@ -41,7 +41,7 @@
 </script>
 
 <svelte:head>
-  <title>Align - Sign Up</title>
+  <title>Sign Up - Align</title>
 </svelte:head>
 
 <main class="h-screen flex flex-col justify-evenly items-center">

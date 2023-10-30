@@ -17,6 +17,9 @@ const config = {
       $src: "./src",
     },
   },
+  vitePlugin: {
+    inspector: true,
+  },
 };
 
 export default config;

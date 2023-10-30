@@ -13,35 +13,61 @@
   export let session: Session | null;
   export let supabase: SupabaseClient<Database>;
 
-  let dragging = false;
+  const minWidth = 320;
+  const minHeight = 80;
+
+  let moving = false;
+  let resizing = false;
 
   let x = card.x_position;
   let y = card.y_position;
+  let width = 320;
+  let height = 80;
 
   const dispatch = createEventDispatcher();
 
-  function startDrag(e: MouseEvent): void {
+  // Moving the card
+  function startMove(e: MouseEvent): void {
     if (e.button === 0) {
-      dragging = true;
+      moving = true;
       document.body.style.cursor = "move";
     }
   }
 
+  // Resizing the card
+  function startResize(e: MouseEvent): void {
+    if (e.button === 0) {
+      resizing = true;
+      document.body.style.cursor = "nw-resize";
+    }
+  }
+
+  async function stopDrag(e: MouseEvent): Promise<void> {
+    if (e.button === 0) {
+      if (moving) moving = false;
+      if (resizing) resizing = false;
+
+      document.body.style.cursor = "auto";
+      // await save();
+    }
+  }
+
   function whileDragging(e: MouseEvent): void {
-    if (dragging) {
+    if (moving) {
       e.preventDefault();
 
       x += e.movementX;
       y += e.movementY;
     }
-  }
 
-  async function stopDrag(e: MouseEvent): Promise<void> {
-    if (dragging && e.button === 0) {
-      dragging = false;
-      document.body.style.cursor = "auto";
+    if (resizing) {
+      e.preventDefault();
 
-      await save();
+      width = e.clientX - x;
+      height = e.clientY - y;
+
+      if (width <= minWidth) width = minWidth;
+      if (height <= minHeight) height = minHeight;
     }
   }
 
@@ -66,14 +92,14 @@
 
     return () => {
       document.removeEventListener("mouseup", stopDrag);
-      document.addEventListener("mousemove", whileDragging);
+      document.removeEventListener("mousemove", whileDragging);
     }
   });
 </script>
 
 <div
   class="group absolute w-auto h-auto duration-0"
-  style="left: {x}px; top: {y}px;"
+  style="left: {x}px; top: {y}px; width: {width}px; height: {height}px;"
   transition:scale={{ easing: backIn }}>
   <!-- Content -->
   {#if card.type === "note"}
@@ -92,7 +118,7 @@
       on:save={save} />
   {/if}
 
-  <!-- Card actions -->
+  <!-- Delete and move card actions -->
   <div class="flex gap-1 absolute top-1.5 right-1.5 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 -translate-y-1 duration-200">
     <button
       class="hover:text-red-500 duration-200"
@@ -100,12 +126,21 @@
       <iconify-icon icon="lucide:trash" class="text-base"></iconify-icon>
     </button>
     <div
-      on:mousedown={startDrag}
+      on:mousedown={startMove}
       role="menuitem"
       tabindex="0"
       class="hover:cursor-move">
       <iconify-icon icon="lucide:move" class="text-base"></iconify-icon>
     </div>
+  </div>
+
+  <!-- Resize card action -->
+  <div
+    on:mousedown={startResize}
+    role="menuitem"
+    tabindex="0"
+    class="absolute bottom-0 right-0 opacity-0 group-hover:opacity-100 duration-200 w-6 h-6 hover:cursor-nw-resize">
+    <iconify-icon icon="mdi:resize-bottom-right" class="text-xl"></iconify-icon>
   </div>
 </div>
 
