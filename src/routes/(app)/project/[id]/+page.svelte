@@ -128,11 +128,11 @@
 
     sidebarOpen = parseInt(localStorage.getItem("sidebar") ?? "1") > 0;
 
+    setLastUpdated();
+
     return async () => {
       document.removeEventListener("mouseup", mouseUp);
       currentProject.set(null);
-
-      await setLastUpdated();
     }
   });
 </script>
