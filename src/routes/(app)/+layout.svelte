@@ -43,11 +43,11 @@
       <Button builders={[builder]} variant="ghost" size="icon" class="rounded-full">
         <Avatar.Root>
           <Avatar.Image
-            src="https://api.dicebear.com/7.x/lorelei/svg?seed={data.session?.user.email}"
+            src="https://api.dicebear.com/7.x/thumbs/svg?seed={data.session?.user.email}"
             alt="{data.session?.user.email}" />
           <Avatar.Fallback>
             {data.session?.user.user_metadata.first_name.charAt(0)}
-            {data.session?.user.user_metadata.last_name.charAt(1)}
+            {data.session?.user.user_metadata.last_name.charAt(0)}
           </Avatar.Fallback>
         </Avatar.Root>
       </Button>
