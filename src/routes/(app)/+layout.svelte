@@ -24,10 +24,6 @@
   }
 </script>
 
-<svelte:head>
-  <title>Align - Dashboard</title>
-</svelte:head>
-
 <!-- Navbar -->
 <nav class="flex fixed top-0 w-full justify-between items-center px-8 border-b border-border h-nav">
   <header class="flex items-center">
