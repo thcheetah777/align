@@ -55,5 +55,5 @@
 <img
   src={imageSource}
   alt="Caption Here"
-  class="w-40 rounded-sm shadow-lg"
+  class="rounded-sm shadow-lg"
   on:click={pickFile} />
