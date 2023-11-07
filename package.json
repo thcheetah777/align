@@ -38,6 +38,7 @@
     "@fontsource-variable/josefin-sans": "^5.0.18",
     "bits-ui": "^0.7.0",
     "clsx": "^2.0.0",
+    "cmdk-sv": "^0.0.5",
     "formsnap": "^0.2.0",
     "lucide-svelte": "^0.288.0",
     "sveltekit-superforms": "^1.8.0",

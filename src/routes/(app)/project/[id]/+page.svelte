@@ -5,10 +5,12 @@
   import { fly } from "svelte/transition";
   import { backInOut } from "svelte/easing";
   import { currentProject } from "$lib/stores";
-  import { projectStatuses } from "$lib/utils";
+  import { cn, projectStatuses } from "$lib/utils";
 
   import * as UICard from "$lib/components/ui/card";
   import * as Select from "$lib/components/ui/select";
+  import * as Command from "$lib/components/ui/command";
+  import * as Popover from "$lib/components/ui/popover";
   import { Button } from "$lib/components/ui/button";
   import { Textarea } from "$lib/components/ui/textarea";
   import { Label } from "$lib/components/ui/label";
@@ -200,7 +202,7 @@
             </UICard.Title>
 
             <UICard.Description class="text-white">
-              <Select.Root>
+              <!-- <Select.Root>
                 <Select.Trigger>
                   <Select.Value placeholder={projectStatus ?? "Choose a status..."} />
                 </Select.Trigger>
@@ -218,7 +220,47 @@
                     {/each}
                   </Select.Group>
                 </Select.Content>
-              </Select.Root>
+              </Select.Root> -->
+              <Popover.Root>
+                <Popover.Trigger asChild let:builder>
+                  <Button
+                    builders={[builder]}
+                    variant="outline"
+                    role="combobox"
+                    class="w-full justify-between">
+                    {#if project.status}
+                      <div class="space-x-2">
+                        <ProjectStatus status={project.status} />
+                        {project.status}
+                      </div>
+                    {:else}
+                      Choose a status...
+                    {/if}
+                    <iconify-icon icon="lucide:chevron-down" class="text-lg"></iconify-icon>
+                  </Button>
+                </Popover.Trigger>
+                <Popover.Content class="w-[200px] p-0">
+                  <Command.Root>
+                    <Command.Input placeholder="Search status..." />
+                    <Command.Empty>No status found.</Command.Empty>
+                    <Command.Group>
+                      {#each projectStatuses as status}
+                        <Command.Item
+                          value={status}
+                          class="space-x-2">
+                          <iconify-icon
+                            icon="lucide:check"
+                            class={cn(
+                              "text-lg",
+                            )}></iconify-icon>
+                          <ProjectStatus {status} />
+                          <span>{status}</span>
+                        </Command.Item>
+                      {/each}
+                    </Command.Group>
+                  </Command.Root>
+                </Popover.Content>
+              </Popover.Root>
             </UICard.Description>
           </UICard.Header>
           <UICard.Content class="space-y-4">
