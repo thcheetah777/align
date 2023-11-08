@@ -8,7 +8,6 @@
   import { cn, projectStatuses } from "$lib/utils";
 
   import * as UICard from "$lib/components/ui/card";
-  import * as Select from "$lib/components/ui/select";
   import * as Command from "$lib/components/ui/command";
   import * as Popover from "$lib/components/ui/popover";
   import { Button } from "$lib/components/ui/button";
@@ -25,10 +24,10 @@
   let whiteboard: HTMLDivElement;
   let panning = false;
   let sidebarOpen: boolean;
+  let statusSelectOpen = false;
 
   let cards = data.cards!;
   let project = data.project;
-  let projectStatus = project.status as string | null;
 
   $: if ($currentProject) $currentProject.name = project.name;
 
@@ -106,8 +105,9 @@
     saveProject();
   }
 
-  function setStatus(status: Enums<"project_status">): void {
-    project.status = status;
+  function setStatus(status: string): void {
+    project.status = status as Enums<"project_status">;
+    statusSelectOpen = false;
     saveProject();
   }
 
@@ -221,7 +221,7 @@
                   </Select.Group>
                 </Select.Content>
               </Select.Root> -->
-              <Popover.Root>
+              <Popover.Root bind:open={statusSelectOpen}>
                 <Popover.Trigger asChild let:builder>
                   <Button
                     builders={[builder]}
@@ -229,9 +229,9 @@
                     role="combobox"
                     class="w-full justify-between">
                     {#if project.status}
-                      <div class="space-x-2">
+                      <div class="space-x-1">
                         <ProjectStatus status={project.status} />
-                        {project.status}
+                        <span>{project.status}</span>
                       </div>
                     {:else}
                       Choose a status...
@@ -247,11 +247,13 @@
                       {#each projectStatuses as status}
                         <Command.Item
                           value={status}
-                          class="space-x-2">
+                          class="space-x-3"
+                          onSelect={setStatus}>
                           <iconify-icon
                             icon="lucide:check"
                             class={cn(
                               "text-lg",
+                              { "invisible": status !== project.status },
                             )}></iconify-icon>
                           <ProjectStatus {status} />
                           <span>{status}</span>
